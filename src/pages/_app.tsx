@@ -11,7 +11,7 @@ import Head from "next/head";
 const App: React.FC<AppProps> = ({ Component, pageProps }) => (
   <>
     <Head>
-      <title>Weather: Do I need an umbrella?</title>
+      <title>Marketplace</title>
       <meta name="description" content="Weather forecast information" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta name="theme-color" content="#3367D6" />
