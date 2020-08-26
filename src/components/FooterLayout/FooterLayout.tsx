@@ -1,6 +1,6 @@
 
 import React from "react";
-import style from "./FooterLayout.module.css"
+import style from "./FooterLayout.module.css";
 
 const FooterLayout: React.FC = (props) => {
   return <nav className={style.footer}>

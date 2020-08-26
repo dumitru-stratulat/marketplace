@@ -1,6 +1,6 @@
 
 import React from "react";
-import style from "./HeaderLayout.module.css"
+import style from "./HeaderLayout.module.css";
 
 const HeaderLayout: React.FC = (props) => {
   return <nav className={style.navigation}>
