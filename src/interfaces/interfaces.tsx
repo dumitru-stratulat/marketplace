@@ -1,14 +1,14 @@
 
-export interface UserInterface {
+export interface User {
   id: number;
   firstName: string;
   lastName: string;
   username: string;
-  orders: ItemInterface[];
+  orders: Item[];
   createdDate: string;
 }
 
-export interface ItemInterface {
+export interface Item {
   id: number;
   title: string;
   description: string;
@@ -21,12 +21,12 @@ export interface ItemInterface {
   price: number;
 }
 
-export interface CartInterface {
-  data: ItemInterface[];
+export interface Cart {
+  data: Item[];
 }
 
-export interface LatestProducts {
-  data: ItemInterface[];
+export interface Latest {
+  data: Item[];
   page_current: number;
   page_total: number;
   objects_per_page: number;
