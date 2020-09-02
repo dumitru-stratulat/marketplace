@@ -55,9 +55,9 @@
     "not dead",
     "not op_mini all"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint"
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|less|sass|scss)$": "<rootDir>/__mocks__/styleMock.js"
     }
   }
 }
