@@ -8,4 +8,8 @@ module.exports = {
   },
   setupFilesAfterEnv: ["./configs/setupTests.js"],
   rootDir: "..",
+  moduleNameMapper: {
+    "\\.(css|less|sass|scss)$": "<rootDir>/__mocks__/styleMock.js"
+  }
+
 };
