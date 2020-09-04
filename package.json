@@ -11,6 +11,7 @@
     "test": "jest --config configs/jest.config.js"
   },
   "dependencies": {
+    "antd": "^4.6.2",
     "axios": "^0.20.0",
     "imagemin-mozjpeg": "^9.0.0",
     "imagemin-optipng": "^8.0.0",

@@ -6,7 +6,7 @@ const FooterLayout: React.FC = () => {
   return <footer>
     <nav className={style.footer}>
       <div className={style.logo}>
-        <img src="#" alt="footer logo" />
+        {/* <img src="#" alt="footer logo" /> */}
       </div>
       <ul className={style.listWrap}>
         <li>Info 1</li>
