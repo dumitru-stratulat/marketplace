@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import Router from "next/router";
 import { Form, Input, Button } from "antd";
@@ -6,17 +6,19 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 import style from "./signup.module.css";
 
-const Signup = () => {
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+interface Value {
+  email: string;
+  username: string;
+  password: string;
+}
 
-  const auth = async (email: string, username: string, password: string) => {
+const Signup = () => {
+  const auth = async (value: Value) => {
     try {
       await axios.post("https://reactive.loca.lt/signup/", {
-        email: email,
-        username: username,
-        password: password,
+        email: value.email,
+        username: value.username,
+        password: value.password,
       });
       return 201;
     } catch (err) {
@@ -24,8 +26,8 @@ const Signup = () => {
     }
   };
 
-  const onFinish = async () => {
-    const status = await auth(email, username, password);
+  const onFinish = async (value: Value) => {
+    const status = await auth(value);
     if (status === 201) {
       Router.push("/");
     }
@@ -46,7 +48,6 @@ const Signup = () => {
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
             placeholder="email"
-            onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Item>
 
@@ -57,7 +58,6 @@ const Signup = () => {
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
             placeholder="username"
-            onChange={(e) => setUsername(e.target.value)}
           />
         </Form.Item>
         <Form.Item
@@ -68,7 +68,6 @@ const Signup = () => {
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
             placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Item>
 

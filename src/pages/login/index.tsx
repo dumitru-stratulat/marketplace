@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import Router from "next/router";
 import { Form, Input, Button, Checkbox } from "antd";
@@ -7,15 +7,17 @@ import Link from "next/Link";
 
 import style from "./login.module.css";
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+interface Value {
+  email: string;
+  password: string;
+}
 
-  const auth = async (login: string, password: string) => {
+const Login = () => {
+  const auth = async (value: Value) => {
     try {
       await axios.post("https://reactive.loca.lt/login/", {
-        email: login,
-        password: password,
+        email: value.email,
+        password: value.password,
       });
       return 200;
     } catch (err) {
@@ -23,14 +25,16 @@ const Login = () => {
     }
   };
 
-  const onFinish = async () => {
-    const status = await auth(email, password);
+  const onFinish = async (value: Value) => {
+    console.log("onFinish -> value", value);
+
+    const status = await auth(value);
     if (status === 200) {
       Router.push("/");
     }
   };
 
-  const showAlert = (e: any) => {
+  const showAlert = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
     alert("Try again!");
   };
@@ -50,7 +54,6 @@ const Login = () => {
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
             placeholder="email"
-            onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Item>
         <Form.Item
@@ -61,7 +64,6 @@ const Login = () => {
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
             placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Item>
         <Form.Item>
