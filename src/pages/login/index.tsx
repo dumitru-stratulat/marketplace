@@ -15,10 +15,16 @@ interface Value {
 const Login = () => {
   const auth = async (value: Value) => {
     try {
-      await axios.post("https://reactive.loca.lt/login/", {
-        email: value.email,
-        password: value.password,
-      });
+      await axios
+        .post("https://reactive.loca.lt/login/", {
+          email: value.email,
+          password: value.password,
+        })
+        .then(function (res) {
+          localStorage.setItem("token", res.data.token);
+          console.log("auth -> data", res);
+        });
+
       return 200;
     } catch (err) {
       console.error(err);
