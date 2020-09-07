@@ -1,18 +1,41 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Form,
   Input,
   Button,
   Cascader,
   InputNumber,
+  Upload
 } from 'antd';
+import ImgCrop from 'antd-img-crop';
 import { addProduct } from 'api/profile';
 
-const onFinish = ({ title, content, category, price }) => {
-  addProduct(title, content, category, price)
-}
+const onPreview = async file => {
+  let src = file.url;
+  if (!src) {
+    src = await new Promise(resolve => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file.originFileObj);
+      reader.onload = () => resolve(reader.result);
+    });
+  }
+  const image = new Image();
+  image.src = src;
+  const imgWindow = window.open(src);
+  imgWindow.document.write(image.outerHTML);
+};
+
+
 
 export default function createProduct() {
+  const [fileList, setFileList] = useState([]);
+
+  const onChange = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+  };
+  const onFinish = ({ title, content, category, price }) => {
+    addProduct(title, content, category, price, fileList)
+  }
   return (
     <div>
       <Form
@@ -57,6 +80,17 @@ export default function createProduct() {
             ]}
           />
         </Form.Item>
+        <ImgCrop rotate>
+          <Upload
+            listType="picture-card"
+            fileList={fileList}
+            onChange={onChange}
+            onPreview={onPreview}
+            name="images"
+          >
+            {fileList.length < 5 && '+ Upload'}
+          </Upload>
+        </ImgCrop>
         <Form.Item label="Price" name="price">
           <InputNumber />
         </Form.Item>
@@ -64,6 +98,7 @@ export default function createProduct() {
           <Button type="primary" htmlType="submit"> Post</Button>
         </Form.Item>
       </Form>
+      <img src="require" alt="" />
     </div>
   )
 }
