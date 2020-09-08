@@ -80,17 +80,19 @@ export default function createProduct() {
             ]}
           />
         </Form.Item>
-        <ImgCrop rotate>
-          <Upload
-            listType="picture-card"
-            fileList={fileList}
-            onChange={onChange}
-            onPreview={onPreview}
-            name="images"
-          >
-            {fileList.length < 5 && '+ Upload'}
-          </Upload>
-        </ImgCrop>
+        <Form.Item label="Upload">
+          <ImgCrop rotate>
+            <Upload
+              listType="picture-card"
+              fileList={fileList}
+              onChange={onChange}
+              onPreview={onPreview}
+              name="images"
+            >
+              {fileList.length < 5 && '+ Upload'}
+            </Upload>
+          </ImgCrop>
+        </Form.Item>
         <Form.Item label="Price" name="price">
           <InputNumber />
         </Form.Item>
