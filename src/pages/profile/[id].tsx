@@ -1,17 +1,31 @@
 import React, { useRef, useEffect } from 'react';
-import { getProfileProducts, addProduct } from 'api/profile';
+import { getProfile } from 'api/profile';
 import { Row, Col } from 'antd';
-import style from './profile.module.css'
 import Link from 'next/Link';
+import style from './profile.module.css'
+import { User, Product } from 'interfaces/interfaces'
 
-export default function Profile({ products }) {
-  const titleInput = useRef<HTMLInputElement>(null);
-  const contentInput = useRef<HTMLInputElement>(null);
-  console.log(products)
+export default function Profile({ user, products }: { user: User, products: Product[] }) {
+  console.log('products', products)
   return (
     <div>
+      <div className={style.profileContainer}>
+        <div className={style.profileWrap}>
+          <img src={require('./logo.jpg')} alt="" className={style.profilePicture} />
+          <div>
+            <h1>Title</h1>
+            <p>{user.username}</p>
+            <p>Chisinau,Moldova</p>
+            <p>Rate</p>
+            <p>Sold item</p>
+          </div>
+        </div>
+        <p>
+          Description
+        </p>
+      </div>
       <Row justify="center" >
-        {products.products.map((product, key) => (
+        {products.map((product: Product, key: number) => (
           <Col
             xs={{ span: 8 }}
             sm={{ span: 8 }}
@@ -21,7 +35,7 @@ export default function Profile({ products }) {
           >
             <Link href='/product/[id]' as={`/product/${product._id}`}>
               <a >
-                <img src={require('./logo.jpg')} className={style.image} />
+                <img src={`http://localhost:8080/${product.imagesUrl[0]}`} className={style.image} />
               </a>
             </Link>
             <p className={style.price}>${product.price}</p>
@@ -32,11 +46,12 @@ export default function Profile({ products }) {
   )
 }
 
-export async function getServerSideProps({ params }) {
-  const res = await getProfileProducts(params.id);
+export async function getServerSideProps({ params }: any) {
+  const profileData = await getProfile(params.id);
   return {
     props: {
-      products: res
+      user: profileData.user,
+      products: profileData.products
     }
   }
 }

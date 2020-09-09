@@ -1,9 +1,14 @@
 import axios from 'axios';
 
-export const getProfileProducts = async (id: string) => {
+export const getProfile = async (id: string) => {
   const response = await axios.get(`https://reactive.loca.lt/profile/${id}`)
   return response.data
 }
+
+// export const getProfileProducts = async (id: string) => {
+//   const response = await axios.get(`https://reactive.loca.lt/profile/${id}`)
+//   return response.data
+// }
 
 export const addProduct = async (title: string, content: string, category: string[], price: number) => {
   const response = await axios.post('https://reactive.loca.lt/create',

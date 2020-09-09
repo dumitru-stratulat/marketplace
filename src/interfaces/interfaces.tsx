@@ -4,16 +4,16 @@ export interface User {
   firstName: string;
   lastName: string;
   username: string;
-  orders: Item[];
+  orders: Product[];
   createdDate: string;
 }
 
-export interface Item {
-  id: number;
+export interface Product {
+  _id: number;
   title: string;
   description: string;
   category: string;
-  photos: string[];
+  imagesUrl: string[];
   rating: number;
   sold: boolean;
   userId: number;
