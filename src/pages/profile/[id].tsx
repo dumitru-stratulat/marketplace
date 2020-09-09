@@ -1,34 +1,40 @@
-import React from "react";
-import { useRouter } from "next/router";
-import axios from "axios";
+import React, { useRef, useEffect } from "react";
+import { getProfileProducts, addProduct } from "api/profile";
 
 import HeaderLayout from "components/HeaderLayout/HeaderLayout";
 import FooterLayout from "components/FooterLayout/FooterLayout";
 
-export default function Profile(postData) {
-  const router = useRouter();
+export default function Profile({ products }) {
+  const titleInput = useRef<HTMLInputElement>(null);
+  const contentInput = useRef<HTMLInputElement>(null);
   return (
     <>
       <HeaderLayout />
-      <div>Profile details</div>
+      <div>
+        {products.products.map((product, key) => (
+          <div key={key}>{product.title}</div>
+        ))}
+        Profile details
+        <p>
+          Title
+          <input type="text" ref={titleInput} />
+        </p>
+        <p>
+          Content
+          <input type="text" ref={contentInput} />
+        </p>
+        <button onClick={() => {}}>Upload</button>
+      </div>
       <FooterLayout />
     </>
   );
 }
 
-export async function getStaticPaths() {
-  return {
-    paths: [{ params: { id: "1" } }],
-    fallback: false,
-  };
-}
-
-export async function getStaticProps(ctx) {
-  //request
-  const requestResponse = 1;
+export async function getServerSideProps({ params }) {
+  const res = await getProfileProducts(params.id);
   return {
     props: {
-      postData: requestResponse,
+      products: res,
     },
   };
 }
