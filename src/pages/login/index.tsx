@@ -12,29 +12,22 @@ interface Value {
   password: string;
 }
 
+type Status = "pending" | "success" | "error";
+
 const Login = () => {
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<Status>("pending");
 
   const auth = async (value: Value) => {
     try {
-      setLoading(true);
       const res = await axios.post("https://reactive.loca.lt/login/", {
         email: value.email,
         password: value.password,
       });
       localStorage.setItem("token", res.data.token);
-      return 200;
-    } catch (err) {
-      setError(err.response.data.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-  const onFinish = async (value: Value) => {
-    const status = await auth(value);
-    if (status === 200) {
+      setStatus("success");
       Router.push("/");
+    } catch (err) {
+      setStatus("error");
     }
   };
 
@@ -49,7 +42,7 @@ const Login = () => {
         name="normal_login"
         className={style.loginForm}
         initialValues={{ remember: true }}
-        onFinish={onFinish}
+        onFinish={auth}
       >
         <Form.Item
           name="email"
@@ -96,11 +89,9 @@ const Login = () => {
             <a href="">register now!</a>
           </Link>
         </Form.Item>
-        {!loading ? (
-          <h4 className={style.error}>{error}</h4>
-        ) : (
-          <h4>Loading...</h4>
-        )}{" "}
+        {status === "error" && (
+          <h4 className={style.error}>Oops, something went wrong!</h4>
+        )}
       </Form>
     </div>
   );
