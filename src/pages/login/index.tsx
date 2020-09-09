@@ -12,8 +12,6 @@ interface Value {
   password: string;
 }
 
-type Status = "pending" | "success" | "error";
-
 const Login = () => {
   const [status, setStatus] = useState<Status>("pending");
 
