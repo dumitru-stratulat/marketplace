@@ -2,7 +2,8 @@ import React from "react";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import HeaderLayout from 'components/HeaderLayout/HeaderLayout';
-import FooterLauout from 'components/FooterLayout/FooterLayout';
+import FooterLayout from 'components/FooterLayout/FooterLayout';
+import "antd/dist/antd.css";
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => (
   <>
@@ -13,7 +14,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => (
     </Head>
     <HeaderLayout />
     <Component {...pageProps} />
-    <FooterLauout />
+    <FooterLayout />
   </>
 );
 
