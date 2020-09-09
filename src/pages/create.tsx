@@ -9,6 +9,7 @@ import {
 } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import { addProduct } from 'api/profile';
+import { categoryOptions } from 'utils/categoryOptions';
 
 const onPreview = async file => {
   let src = file.url;
@@ -56,28 +57,7 @@ export default function createProduct() {
         </Form.Item>
         <Form.Item label="Categories" name="category">
           <Cascader
-            options={[
-              {
-                value: 'Man',
-                label: 'man',
-                children: [
-                  {
-                    value: 'top',
-                    label: 'Top',
-                  },
-                ],
-              },
-              {
-                value: 'women',
-                label: 'women',
-                children: [
-                  {
-                    value: 'top',
-                    label: 'Top',
-                  },
-                ],
-              },
-            ]}
+            options={categoryOptions}
           />
         </Form.Item>
         <Form.Item label="Upload">
