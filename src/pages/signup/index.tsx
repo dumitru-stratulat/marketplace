@@ -12,8 +12,6 @@ interface Value {
   password: string;
 }
 
-type Status = "pending" | "success" | "error";
-
 const Signup = () => {
   const [status, setStatus] = useState<Status>("pending");
 
@@ -30,8 +28,6 @@ const Signup = () => {
       setStatus("error");
     }
   };
-
-  console.log("Signup -> status", status);
 
   return (
     <div>
