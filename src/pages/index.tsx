@@ -1,10 +1,15 @@
 import React from "react";
-import Button from '../components/Button/Button'
+import HeaderLayout from "components/HeaderLayout/HeaderLayout";
+import FooterLayout from "components/FooterLayout/FooterLayout";
 
 const HomePage: React.FC = () => (
-  <div>
-    <h1>Hello nextjs</h1>
-  </div>
+  <>
+    <HeaderLayout />
+    <div>
+      <h1>Hello nextjs</h1>
+    </div>
+    <FooterLayout />
+  </>
 );
 
 export default HomePage;
