@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "antd": "^4.6.2",
+    "antd-img-crop": "^3.10.0",
     "axios": "^0.20.0",
     "imagemin-mozjpeg": "^9.0.0",
     "imagemin-optipng": "^8.0.0",

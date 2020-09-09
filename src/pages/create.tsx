@@ -1,18 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Form,
   Input,
   Button,
   Cascader,
   InputNumber,
+  Upload
 } from 'antd';
+import ImgCrop from 'antd-img-crop';
 import { addProduct } from 'api/profile';
+import { categoryOptions } from 'utils/categoryOptions';
 
-const onFinish = ({ title, content, category, price }) => {
-  addProduct(title, content, category, price)
-}
+const onPreview = async file => {
+  let src = file.url;
+  if (!src) {
+    src = await new Promise(resolve => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file.originFileObj);
+      reader.onload = () => resolve(reader.result);
+    });
+  }
+  const image = new Image();
+  image.src = src;
+  const imgWindow = window.open(src);
+  imgWindow.document.write(image.outerHTML);
+};
+
+
 
 export default function createProduct() {
+  const [fileList, setFileList] = useState([]);
+
+  const onChange = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+  };
+  const onFinish = ({ title, content, category, price }) => {
+    addProduct(title, content, category, price, fileList)
+  }
   return (
     <div>
       <Form
@@ -33,29 +57,21 @@ export default function createProduct() {
         </Form.Item>
         <Form.Item label="Categories" name="category">
           <Cascader
-            options={[
-              {
-                value: 'Man',
-                label: 'man',
-                children: [
-                  {
-                    value: 'top',
-                    label: 'Top',
-                  },
-                ],
-              },
-              {
-                value: 'women',
-                label: 'women',
-                children: [
-                  {
-                    value: 'top',
-                    label: 'Top',
-                  },
-                ],
-              },
-            ]}
+            options={categoryOptions}
           />
+        </Form.Item>
+        <Form.Item label="Upload">
+          <ImgCrop rotate>
+            <Upload
+              listType="picture-card"
+              fileList={fileList}
+              onChange={onChange}
+              onPreview={onPreview}
+              name="images"
+            >
+              {fileList.length < 5 && '+ Upload'}
+            </Upload>
+          </ImgCrop>
         </Form.Item>
         <Form.Item label="Price" name="price">
           <InputNumber />
@@ -64,6 +80,7 @@ export default function createProduct() {
           <Button type="primary" htmlType="submit"> Post</Button>
         </Form.Item>
       </Form>
+      <img src="require" alt="" />
     </div>
   )
 }
