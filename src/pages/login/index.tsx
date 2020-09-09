@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Router from "next/router";
 import { Form, Input, Button, Checkbox } from "antd";
@@ -13,27 +13,25 @@ interface Value {
 }
 
 const Login = () => {
+  const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
+
   const auth = async (value: Value) => {
     try {
-      await axios
-        .post("https://reactive.loca.lt/login/", {
-          email: value.email,
-          password: value.password,
-        })
-        .then(function (res) {
-          localStorage.setItem("token", res.data.token);
-          console.log("auth -> data", res);
-        });
-
+      setLoading(true);
+      const res = await axios.post("https://reactive.loca.lt/login/", {
+        email: value.email,
+        password: value.password,
+      });
+      localStorage.setItem("token", res.data.token);
       return 200;
     } catch (err) {
-      console.error(err);
+      setError(err.response.data.message);
+    } finally {
+      setLoading(false);
     }
   };
-
   const onFinish = async (value: Value) => {
-    console.log("onFinish -> value", value);
-
     const status = await auth(value);
     if (status === 200) {
       Router.push("/");
@@ -85,7 +83,6 @@ const Login = () => {
             Forgot password
           </a>
         </Form.Item>
-
         <Form.Item>
           <Button
             type="primary"
@@ -99,6 +96,11 @@ const Login = () => {
             <a href="">register now!</a>
           </Link>
         </Form.Item>
+        {!loading ? (
+          <h4 className={style.error}>{error}</h4>
+        ) : (
+          <h4>Loading...</h4>
+        )}{" "}
       </Form>
     </div>
   );

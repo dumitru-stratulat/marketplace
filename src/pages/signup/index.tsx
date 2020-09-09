@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Router from "next/router";
 import { Form, Input, Button } from "antd";
@@ -13,8 +13,12 @@ interface Value {
 }
 
 const Signup = () => {
+  const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
+
   const auth = async (value: Value) => {
     try {
+      setLoading(true);
       await axios.post("https://reactive.loca.lt/signup/", {
         email: value.email,
         username: value.username,
@@ -22,7 +26,9 @@ const Signup = () => {
       });
       return 201;
     } catch (err) {
-      console.error(err);
+      setError(err.response.data.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -50,7 +56,6 @@ const Signup = () => {
             placeholder="email"
           />
         </Form.Item>
-
         <Form.Item
           name="username"
           rules={[{ required: true, message: "Please input your username!" }]}
@@ -70,7 +75,6 @@ const Signup = () => {
             placeholder="Password"
           />
         </Form.Item>
-
         <Form.Item>
           <Button
             type="primary"
@@ -80,6 +84,11 @@ const Signup = () => {
             Sign up
           </Button>
         </Form.Item>
+        {!loading ? (
+          <h4 className={style.error}>{error}</h4>
+        ) : (
+          <h4>Loading...</h4>
+        )}
       </Form>
     </div>
   );
