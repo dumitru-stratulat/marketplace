@@ -1,7 +1,12 @@
 import axios from 'axios';
 
 export const getProfile = async (id: string) => {
-  const response = await axios.get(`https://reactive.loca.lt/profile/${id}`)
+  const response = await axios.get(`https://reactive.loca.lt/profile/${id}`,
+    {
+      headers: {
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpbWEuc3RyYXR1bGF0OTIzMjE5MWQyMzIzMjQyZjMyMTNAZ21haWwuY29tIiwidXNlcklkIjoiNWY0ZjgwYmZlMDdkZmFjYmYwNjBjZmVmIiwiaWF0IjoxNTk5NzI0NDkxLCJleHAiOjE1OTk4OTcyOTF9.8eGSi9FeTnq4RwL5IuOaaUx6ljq-mt3m3zk8aev6VL0'
+      }
+    })
   return response.data
 }
 
@@ -19,7 +24,7 @@ export const addProduct = async (title: string, content: string, category: strin
     formData,
     {
       headers: {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpbWEuc3RyYXR1bGF0OTkxQGdtYWlsLmNvbSIsInVzZXJJZCI6IjVmNGZhMDIxNmVjZTYwZDA1ZTFjYWYyZiIsImlhdCI6MTU5OTEzODYzNiwiZXhwIjoxNTk5MzExNDM2fQ.HX1Yuw4LTPZSRr7iWgG5xdgIWiCnlD482grZynwZEmY'
+        Authorization: 'Bearer' + localStorage.getItem("token")
       }
     }
   )

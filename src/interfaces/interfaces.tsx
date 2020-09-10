@@ -6,6 +6,8 @@ export interface User {
   username: string;
   orders: Product[];
   createdDate: string;
+  profileTitle: string;
+  profileDescription: string;
 }
 
 export interface Product {
