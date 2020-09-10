@@ -3,14 +3,15 @@ import axios from "axios";
 import Router from "next/router";
 import { Form, Input, Button, Cascader } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-
 import style from "./signup.module.css";
-import { categoryOptions } from "utils/categoryOptions";
+import { locationOptions } from "utils/locationOptions";
 
 interface Value {
   email: string;
   username: string;
   password: string;
+  title: string;
+  description: string;
 }
 
 const Signup = () => {
@@ -18,11 +19,15 @@ const Signup = () => {
 
   const auth = async (value: Value) => {
     try {
-      await axios.post("https://reactive.loca.lt/signup/", {
+      const res = await axios.post("https://reactive.loca.lt/signup/", {
         email: value.email,
         username: value.username,
         password: value.password,
+        profileTitle: value.title,
+        profileDescription: value.description
+
       });
+      localStorage.setItem("token", res.data.token);
       setStatus("success");
       Router.push("/");
     } catch (err) {
@@ -56,9 +61,30 @@ const Signup = () => {
             placeholder="username"
           />
         </Form.Item>
-        <Form.Item label="Categories" name="category">
+        <Form.Item
+          label="Location"
+          name="category"
+          rules={[{ required: true, message: "Please input your Location" }]}
+        >
           <Cascader
-            options={categoryOptions}
+            options={locationOptions}
+          />
+        </Form.Item>
+        <Form.Item
+          name="title"
+          rules={[{ required: true, message: "Please input your profile title!" }]}
+        >
+          <Input
+            placeholder="Profile title"
+          />
+        </Form.Item>
+        <Form.Item
+          name="description"
+          rules={[{ required: true, message: "Please input your profile description!" }]}
+        >
+          <Input.TextArea
+            autoSize={true}
+            placeholder="Profile description"
           />
         </Form.Item>
         <Form.Item

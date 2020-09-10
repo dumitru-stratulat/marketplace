@@ -6,6 +6,8 @@ export interface User {
   username: string;
   orders: Product[];
   createdDate: string;
+  profileTitle: string;
+  profileDescription: string;
 }
 
 export interface Product {
@@ -22,11 +24,11 @@ export interface Product {
 }
 
 export interface Cart {
-  data: Item[];
+  data: Product[];
 }
 
 export interface Latest {
-  data: Item[];
+  data: Product[];
   page_current: number;
   page_total: number;
   objects_per_page: number;
