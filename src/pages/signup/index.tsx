@@ -12,6 +12,7 @@ interface Value {
   password: string;
   title: string;
   description: string;
+  location: string[];
 }
 
 const Signup = () => {
@@ -24,8 +25,8 @@ const Signup = () => {
         username: value.username,
         password: value.password,
         profileTitle: value.title,
-        profileDescription: value.description
-
+        profileDescription: value.description,
+        location: value.location
       });
       localStorage.setItem("token", res.data.token);
       setStatus("success");
@@ -63,7 +64,7 @@ const Signup = () => {
         </Form.Item>
         <Form.Item
           label="Location"
-          name="category"
+          name="location"
           rules={[{ required: true, message: "Please input your Location" }]}
         >
           <Cascader

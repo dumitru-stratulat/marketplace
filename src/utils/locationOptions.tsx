@@ -1,7 +1,7 @@
 
 export const locationOptions = [
   {
-    value: '',
+    value: 'Moldova',
     label: 'Moldova',
     children: [
       {

@@ -26,8 +26,6 @@ const onPreview = async file => {
   imgWindow.document.write(image.outerHTML);
 };
 
-
-
 export default function createProduct() {
   const [fileList, setFileList] = useState([]);
 

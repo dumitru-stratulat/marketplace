@@ -8,7 +8,6 @@ import HeaderLayout from "components/HeaderLayout/HeaderLayout";
 import FooterLayout from "components/FooterLayout/FooterLayout";
 
 export default function Profile({ user, products }: { user: User, products: Product[] }) {
-  console.log('products', products)
   return (
     <div>
       <HeaderLayout />
