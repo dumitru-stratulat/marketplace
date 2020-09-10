@@ -4,11 +4,14 @@ import { Row, Col } from 'antd';
 import Link from 'next/Link';
 import style from './profile.module.css'
 import { User, Product } from 'interfaces/interfaces'
+import HeaderLayout from "components/HeaderLayout/HeaderLayout";
+import FooterLayout from "components/FooterLayout/FooterLayout";
 
 export default function Profile({ user, products }: { user: User, products: Product[] }) {
   console.log('products', products)
   return (
     <div>
+      <HeaderLayout />
       <div className={style.profileContainer}>
         <div className={style.profileWrap}>
           <img src={require('./logo.jpg')} alt="" className={style.profilePicture} />
@@ -42,6 +45,7 @@ export default function Profile({ user, products }: { user: User, products: Prod
           </Col>
         ))}
       </Row>
+      <FooterLayout />
     </div >
   )
 }
