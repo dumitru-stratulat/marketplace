@@ -11,30 +11,35 @@ import ImgCrop from 'antd-img-crop';
 import { addProduct } from 'api/profile';
 import { categoryOptions } from 'utils/categoryOptions';
 
-const onPreview = async file => {
+const onPreview = async (file: any) => {
   let src = file.url;
   if (!src) {
     src = await new Promise(resolve => {
-      const reader = new FileReader();
+      const reader: any = new FileReader();
       reader.readAsDataURL(file.originFileObj);
       reader.onload = () => resolve(reader.result);
     });
   }
   const image = new Image();
   image.src = src;
-  const imgWindow = window.open(src);
-  imgWindow.document.write(image.outerHTML);
+  const imgWindow: Window | null = window.open(src);
+  imgWindow && imgWindow.document.write(image.outerHTML);
 };
 
-
+interface OnFinish {
+  title: string;
+  content: string;
+  category: string[];
+  price: number;
+}
 
 export default function createProduct() {
   const [fileList, setFileList] = useState([]);
 
-  const onChange = ({ fileList: newFileList }) => {
+  const onChange = ({ fileList: newFileList }: { fileList: any }) => {
     setFileList(newFileList);
   };
-  const onFinish = ({ title, content, category, price }) => {
+  const onFinish = ({ title, content, category, price }: OnFinish) => {
     addProduct(title, content, category, price, fileList)
   }
   return (
