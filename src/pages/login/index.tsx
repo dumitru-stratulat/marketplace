@@ -60,10 +60,12 @@ const Login = () => {
       className={style.loginForm}
       initialValues={{ remember: true }}
       onFinish={auth}
+      aria-label="Some name"
     >
       <Form.Item
         name="email"
         rules={[{ required: true, message: "Please input your email!" }]}
+        label="Email"
       >
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}
@@ -73,6 +75,7 @@ const Login = () => {
       <Form.Item
         name="password"
         rules={[{ required: true, message: "Please input your Password!" }]}
+        label="Password"
       >
         <Input
           prefix={<LockOutlined className="site-form-item-icon" />}
