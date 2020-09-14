@@ -6,4 +6,14 @@ declare module "*.module.css" {
   export default classes;
 }
 
-type Status = "pending" | "success" | "error";
+type StatusState = {
+  status: "idle" | "pending" | "success" | "error";
+  message?: unknown;
+};
+
+type ProductData = {
+  title: title;
+  price: number;
+  content: content;
+  imagesUrl: [unknown];
+};

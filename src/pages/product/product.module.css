@@ -1,0 +1,41 @@
+.imgContainer {
+  margin: 2rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.outerContainer {
+  display: flex;
+  align-self: center;
+  margin: 6rem 0;
+}
+.productContainer {
+  display: flex;
+}
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem;
+  width: 16rem;
+}
+.infoSpan {
+  margin: 1rem 0;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+}
+
+.titleSpan {
+  margin: 1.5rem 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.ant-rate {
+  font-size: 16px;
+}
+.error {
+  color: red;
+}

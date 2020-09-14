@@ -13,19 +13,26 @@ interface Value {
 }
 
 const Signup = () => {
-  const [status, setStatus] = useState<Status>("pending");
+  const [statusState, setStatusState] = useState<StatusState>({
+    status: "idle",
+  });
 
   const auth = async (value: Value) => {
     try {
-      await axios.post("https://reactive.loca.lt/signup/", {
+      setStatusState({ status: "pending" });
+      const res = await axios.post("https://reactive.loca.lt/signup/", {
         email: value.email,
         username: value.username,
         password: value.password,
       });
-      setStatus("success");
+      localStorage.setItem("token", res.data.token);
+      setStatusState({ status: "success" });
       Router.push("/");
     } catch (err) {
-      setStatus("error");
+      setStatusState({
+        status: "error",
+        message: err.response.data.message,
+      });
     }
   };
 
@@ -74,8 +81,8 @@ const Signup = () => {
             Sign up
           </Button>
         </Form.Item>
-        {status === "error" && (
-          <h4 className={style.error}>Oops, something went wrong!</h4>
+        {statusState.status === "error" && (
+          <h4 className={style.error}>{statusState.message}</h4>
         )}
       </Form>
     </div>
