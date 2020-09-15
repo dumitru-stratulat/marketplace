@@ -1,40 +1,60 @@
-import React, { useRef, useEffect } from "react";
-import { getProfileProducts, addProduct } from "api/profile";
-
+import React, { useRef, useEffect } from 'react';
+import { getProfile } from 'api/profile';
+import { Row, Col } from 'antd';
+import Link from 'next/Link';
+import style from './profile.module.css'
+import { User, Product } from 'interfaces/interfaces'
 import HeaderLayout from "components/HeaderLayout/HeaderLayout";
 import FooterLayout from "components/FooterLayout/FooterLayout";
 
-export default function Profile({ products }) {
-  const titleInput = useRef<HTMLInputElement>(null);
-  const contentInput = useRef<HTMLInputElement>(null);
+export default function Profile({ user, products }: { user: User, products: Product[] }) {
   return (
-    <>
+    <div>
       <HeaderLayout />
-      <div>
-        {products.products.map((product, key) => (
-          <div key={key}>{product.title}</div>
-        ))}
-        Profile details
+      <div className={style.profileContainer}>
+        <div className={style.profileWrap}>
+          <img src={require('./logo.jpg')} alt="" className={style.profilePicture} />
+          <div>
+            <h1>Title</h1>
+            <p>{user.username}</p>
+            <p>Chisinau,Moldova</p>
+            <p>Rate</p>
+            <p>Sold item</p>
+          </div>
+        </div>
         <p>
-          Title
-          <input type="text" ref={titleInput} />
+          Description
         </p>
-        <p>
-          Content
-          <input type="text" ref={contentInput} />
-        </p>
-        <button onClick={() => {}}>Upload</button>
       </div>
+      <Row justify="center" >
+        {products.map((product: Product, key: number) => (
+          <Col
+            xs={{ span: 8 }}
+            sm={{ span: 8 }}
+            md={{ span: 8 }}
+            lg={{ span: 4 }}
+            xl={{ span: 4 }}
+          >
+            <Link href='/product/[id]' as={`/product/${product._id}`}>
+              <a >
+                <img src={`http://localhost:8080/${product.imagesUrl[0]}`} className={style.image} />
+              </a>
+            </Link>
+            <p className={style.price}>${product.price}</p>
+          </Col>
+        ))}
+      </Row>
       <FooterLayout />
-    </>
-  );
+    </div >
+  )
 }
 
-export async function getServerSideProps({ params }) {
-  const res = await getProfileProducts(params.id);
+export async function getServerSideProps({ params }: any) {
+  const profileData = await getProfile(params.id);
   return {
     props: {
-      products: res,
-    },
-  };
+      user: profileData.user,
+      products: profileData.products
+    }
+  }
 }

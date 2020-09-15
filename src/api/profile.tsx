@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export const getProfileProducts = async (id: string) => {
-  const response = await axios.get(`https://old-crab-12.loca.lt/profile/${id}`)
+export const getProfile = async (id: string) => {
+  const response = await axios.get(`https://reactive.loca.lt/profile/${id}`)
   return response.data
 }
 

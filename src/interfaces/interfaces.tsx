@@ -4,16 +4,18 @@ export interface User {
   firstName: string;
   lastName: string;
   username: string;
-  orders: Item[];
+  orders: Product[];
   createdDate: string;
+  profileTitle: string;
+  profileDescription: string;
 }
 
-export interface Item {
-  id: number;
+export interface Product {
+  _id: number;
   title: string;
   description: string;
   category: string;
-  photos: string[];
+  imagesUrl: string[];
   rating: number;
   sold: boolean;
   userId: number;
@@ -22,11 +24,11 @@ export interface Item {
 }
 
 export interface Cart {
-  data: Item[];
+  data: Product[];
 }
 
 export interface Latest {
-  data: Item[];
+  data: Product[];
   page_current: number;
   page_total: number;
   objects_per_page: number;
