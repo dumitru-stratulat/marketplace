@@ -1,7 +1,7 @@
 
 export const categoryOptions = [
   {
-    value: 'Man',
+    value: 'man',
     label: 'man',
     children: [
       {
