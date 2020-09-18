@@ -34,3 +34,18 @@ export interface Latest {
   objects_per_page: number;
   objects_total: number;
 }
+
+export interface File {
+  lastModified: number;
+  lastModifiedDate: number;
+  name: string;
+  originFileObj: Blob;
+  percent: number;
+  response: string;
+  size: number;
+  status: string;
+  thumbUrl: string;
+  type: string;
+  uid: string;
+  url: string;
+}

@@ -15,20 +15,19 @@ export default function Profile({ user, products }: { user: User, products: Prod
         <div className={style.profileWrap}>
           <img src={require('./logo.jpg')} alt="" className={style.profilePicture} />
           <div>
-            <h1>Title</h1>
+            <h1>{user.profileTitle}</h1>
             <p>{user.username}</p>
             <p>Chisinau,Moldova</p>
-            <p>Rate</p>
-            <p>Sold item</p>
           </div>
         </div>
         <p>
-          Description
+          {user.profileDescription}
         </p>
       </div>
       <Row justify="center" >
         {products.map((product: Product, key: number) => (
           <Col
+            key={key}
             xs={{ span: 8 }}
             sm={{ span: 8 }}
             md={{ span: 8 }}
