@@ -26,7 +26,6 @@ const onPreview = async (file: any) => {
   imgWindow && imgWindow.document.write(image.outerHTML);
 };
 
-<<<<<<< HEAD
 interface OnFinish {
   title: string;
   content: string;
@@ -34,8 +33,6 @@ interface OnFinish {
   price: number;
 }
 
-=======
->>>>>>> 725fb23522812f6df5de179097b490c1fa62bc47
 export default function createProduct() {
   const [fileList, setFileList] = useState([]);
 
