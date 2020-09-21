@@ -32,7 +32,11 @@ export default function HomePage({ randomProducts, latestProducts }: any) {
           </h2>
         </div>
         <h1 className={style.header2} >Latest products</h1>
-        <Row justify="center" className={style.wrap} gutter={[{ xs: 1, sm: 1, md: 10, lg: 10, xl: 10 }, { xs: 10, sm: 10 }]} >
+        <Row
+          justify="center"
+          className={style.wrap}
+          gutter={[{ xs: 1, sm: 1, md: 10, lg: 10, xl: 10 }, { xs: 10, sm: 10 }]}
+        >
           {latestProducts.map((product: Product, key: number) => (
             <Col
               key={key}
