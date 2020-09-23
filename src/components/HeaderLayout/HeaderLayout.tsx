@@ -72,8 +72,15 @@ const HeaderLayout: React.FC = () => {
             </a>
           </Dropdown>
           </li>
-          <li>Search</li>
-          <li>Sell</li>
+          <li>
+            <Link href="/search">
+              <a>Search</a>
+            </Link></li>
+          <li>
+            <Link href="/create">
+              <a>Sell</a>
+            </Link>
+          </li>
           <li>
             <ProfileButton />
           </li>

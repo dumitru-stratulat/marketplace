@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import HeaderLayout from "components/HeaderLayout/HeaderLayout";
 import FooterLayout from "components/FooterLayout/FooterLayout";
 import { getHomeProducts } from 'api/home';
@@ -6,8 +6,10 @@ import { Row, Col } from 'antd';
 import { Product } from 'interfaces/interfaces'
 import Link from 'next/Link';
 import style from './index.module.css';
+import { AppContext } from "context/AppContext";
 
 export default function HomePage({ randomProducts, latestProducts }: any) {
+  const ctx = useContext(AppContext);
   return (
     <>
       <HeaderLayout />
