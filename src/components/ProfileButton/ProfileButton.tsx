@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AppContext, ContextProps } from 'context/AppContext'
+import { User } from 'interfaces/interfaces';
+import { Router } from 'next/router';
+import Link from 'next/Link';
 
 export default function ProfileButton() {
-  const handleClick = () => {
-    console.log(localStorage.getItem('token'))
+  const ctx: ContextProps | null = useContext(AppContext);
+  if (!ctx) {
+    throw new Error('You probably forgot to put <AppProvider>.');
   }
+
   return (
-    <a onClick={handleClick}>
-      Profile
+    <Link href='/profile/[id]' as={`/profile/${ctx.userDetails && ctx.userDetails.userId}`}>
+      <a >
+        Profile
     </a>
+    </Link>
   )
 }

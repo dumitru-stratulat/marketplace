@@ -1,13 +1,14 @@
 
 export interface User {
-  id: number;
+  userId: string;
   firstName: string;
   lastName: string;
   username: string;
-  orders: Product[];
   createdDate: string;
   profileTitle: string;
   profileDescription: string;
+  email: string;
+  location: string[];
 }
 
 export interface Product {
