@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import {
   Form,
   Input,
@@ -10,6 +10,10 @@ import {
 import ImgCrop from 'antd-img-crop';
 import { addProduct } from 'api/profile';
 import { categoryOptions } from 'utils/categoryOptions';
+import { AppContext, ContextProps } from 'context/AppContext'
+import { Context } from 'vm';
+import HeaderLayout from 'components/HeaderLayout/HeaderLayout';
+import FooterLayout from 'components/FooterLayout/FooterLayout';
 
 const onPreview = async (file: any) => {
   let src = file.url;
@@ -35,15 +39,21 @@ interface OnFinish {
 
 export default function createProduct() {
   const [fileList, setFileList] = useState([]);
+  const ctx: ContextProps | null = useContext(AppContext);
+  if (!ctx) {
+    throw new Error('You probably forgot to put <AppProvider>.');
+  }
 
   const onChange = ({ fileList: newFileList }: { fileList: any }) => {
     setFileList(newFileList);
   };
   const onFinish = ({ title, content, category, price }: OnFinish) => {
-    addProduct(title, content, category, price, fileList)
+    category = [category[0], category[2]];
+    addProduct(title, content, category, price, fileList, ctx.userDetails.username);
   }
   return (
     <div>
+      <HeaderLayout />
       <Form
         labelCol={{
           span: 8,
@@ -63,6 +73,7 @@ export default function createProduct() {
         <Form.Item label="Categories" name="category">
           <Cascader
             options={categoryOptions}
+            expandTrigger="hover"
           />
         </Form.Item>
         <Form.Item label="Upload">
@@ -86,6 +97,7 @@ export default function createProduct() {
         </Form.Item>
       </Form>
       <img src="require" alt="" />
+      <FooterLayout />
     </div>
   )
 }
