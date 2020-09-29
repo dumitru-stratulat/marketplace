@@ -11,7 +11,7 @@ export const getProfile = async (id: string) => {
   return response.data
 }
 
-export const addProduct = async (title: string, content: string, category: string[], price: number, fileList: any) => {
+export const addProduct = async (title: string, content: string, category: string[], price: number, fileList: any, username: string) => {
   const formData = new FormData();
   formData.append('title', title);
   formData.append('content', content);
@@ -19,8 +19,9 @@ export const addProduct = async (title: string, content: string, category: strin
     formData.append('category[]', element);
   });
   formData.append('price', price.toString());
+
   fileList.forEach((element: File) => {
-    formData.append('image[]', element.originFileObj);
+    formData.append('image[]', element.originFileObj, `${username} ${element.name}`);
   });
   const response = await axios.post('https://reactive.loca.lt/create',
     formData,

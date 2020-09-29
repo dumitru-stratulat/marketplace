@@ -50,7 +50,7 @@ export default function HomePage({ randomProducts, latestProducts }: any) {
             >
               <Link href='/product/[id]' as={`/product/${product._id}`}>
                 <a >
-                  <img src={`http://localhost:8080/${product.imagesUrl[0]}`} className={style.image} />
+                  <img src={`https://s3.eu-central-1.amazonaws.com/outfit.md/${product.imagesUrl[0]}`} className={style.image} />
                 </a>
               </Link>
               <p className={style.price}>${product.price}</p>
@@ -70,7 +70,7 @@ export default function HomePage({ randomProducts, latestProducts }: any) {
             >
               <Link href='/product/[id]' as={`/product/${product._id}`}>
                 <a >
-                  <img src={`http://localhost:8080/${product.imagesUrl[0]}`} className={style.image} />
+                  <img src={`https://s3.eu-central-1.amazonaws.com/outfit.md/${product.imagesUrl[0]}`} className={style.image} />
                 </a>
               </Link>
               <p className={style.price}>${product.price}</p>
