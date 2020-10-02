@@ -14,6 +14,8 @@ import { AppContext, ContextProps } from 'context/AppContext'
 import { Context } from 'vm';
 import HeaderLayout from 'components/HeaderLayout/HeaderLayout';
 import FooterLayout from 'components/FooterLayout/FooterLayout';
+import { sizeOptions } from 'utils/sizeOptions';
+import { conditionOptions } from 'utils/conditionOptions';
 
 const onPreview = async (file: any) => {
   let src = file.url;
@@ -35,6 +37,8 @@ interface OnFinish {
   content: string;
   category: string[];
   price: number;
+  condition: string[];
+  size: string[];
 }
 
 export default function createProduct() {
@@ -47,10 +51,12 @@ export default function createProduct() {
   const onChange = ({ fileList: newFileList }: { fileList: any }) => {
     setFileList(newFileList);
   };
-  const onFinish = ({ title, content, category, price }: OnFinish) => {
+  const onFinish = ({ title, content, category, price, condition, size }: OnFinish) => {
     category = [category[0], category[2]];
-    addProduct(title, content, category, price, fileList, ctx.userDetails.username);
+    addProduct(title, content, category, price, fileList, ctx.userDetails.username, condition[0], size[1]);
   }
+
+
   return (
     <div>
       <HeaderLayout />
@@ -88,6 +94,18 @@ export default function createProduct() {
               {fileList.length < 5 && '+ Upload'}
             </Upload>
           </ImgCrop>
+        </Form.Item>
+        <Form.Item label="Conditie" name="condition">
+          <Cascader
+            options={conditionOptions}
+            expandTrigger="hover"
+          />
+        </Form.Item>
+        <Form.Item label="Marime" name="size">
+          <Cascader
+            options={sizeOptions}
+            expandTrigger="hover"
+          />
         </Form.Item>
         <Form.Item label="Price" name="price">
           <InputNumber />

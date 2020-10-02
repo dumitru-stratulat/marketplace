@@ -11,10 +11,21 @@ export const getProfile = async (id: string) => {
   return response.data
 }
 
-export const addProduct = async (title: string, content: string, category: string[], price: number, fileList: any, username: string) => {
+export const addProduct = async (
+  title: string,
+  content: string,
+  category: string[],
+  price: number,
+  fileList: any,
+  username: string,
+  condition: string,
+  size: string
+) => {
   const formData = new FormData();
   formData.append('title', title);
   formData.append('content', content);
+  formData.append('condition', condition)
+  formData.append('size', size)
   category.forEach(element => {
     formData.append('category[]', element);
   });
