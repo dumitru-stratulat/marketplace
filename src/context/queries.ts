@@ -12,6 +12,7 @@ export const getUserInfo = async () => {
     );
     return response.data;
   } catch (err) {
-    console.log('Error', err);
+    // console.log('Error', err);
+    return err.status = 500;
   }
 };

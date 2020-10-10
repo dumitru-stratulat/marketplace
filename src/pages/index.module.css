@@ -7,8 +7,8 @@
 	font-weight: 900;
 }
 .wrap {
-  padding-left: 5%;
-  padding-right: 5%;
+	padding-left: 5%;
+	padding-right: 5%;
 }
 .mainImage {
 	max-width: 100%;
@@ -19,18 +19,19 @@
 .leftImage {
 	flex: 1;
 	height: 600px;
-	background-color: #ffe1e9;
+	background-color: #ffd77e;
 }
 .imageContent {
 	display: flex;
 }
-.imageContentHeader {
+.imageContentHeader3 {
 	position: absolute;
-	margin-top: 100px;
-  margin-left: 8%;
-  font-size: 40px;
+	margin-top: 280px;
+	margin-left: 5%;
+	font-size: 40px;
 	font-weight: 800;
-
+	color: white;
+	border: 1px solid black;
 }
 .mainTextContainer {
 	display: none;
@@ -49,6 +50,17 @@
 	margin: 0;
 	margin-left: 5%;
 }
+.imageContentParagraph {
+	position: absolute;
+	margin-top: 360px;
+	margin-left: 5%;
+	font-size: 30px;
+	font-weight: 800;
+	color: white;
+}
+.imageContentParagraph p {
+	margin: 0px;
+}
 
 @media screen and (max-width: 768px) {
 	.price {
@@ -57,11 +69,22 @@
 	.leftImage {
 		height: 400px;
 	}
-	.imageContentHeader {
+	.imageContentHeader3,
+	.imageContentParagraph {
 		display: none;
 	}
 	.mainTextContainer {
 		display: block;
-		background-color: #7286d7;
+		background-color: #ffd77e;
+	}
+	.mainTextContainer h1 {
+		font-size: 3.2vh;
+	}
+	.mainTextContainer :first-child {
+		display: inline-block;
+		border: 1px solid black;
+		font-size: 9vw;
+		margin-bottom: 20px;
+		margin-top: 20px;
 	}
 }

@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import style from "./HeaderLayout.module.css";
 import { Menu, Dropdown } from "antd";
 import Link from "next/Link";
 import axios from 'axios';
 import ProfileButton from '../ProfileButton/ProfileButton';
 import Router from "next/router";
+import { ContextProps, AppContext } from "context/AppContext";
+import { getUserInfo } from "context/queries";
 const { SubMenu } = Menu;
 
 const HeaderLayout: React.FC = () => {
   const handleClick = async (gender: string, e: any) => {
     Router.push(`/category?gender=${gender}&category=${e.keyPath[0]}`);
+  }
+  const handlePermission = async () => {
+    const response = await getUserInfo();
+    if (response == 500) {
+      localStorage.removeItem('token');
+      Router.push('/login')
+    } else {
+      Router.push(`/create`);
+    }
   }
 
   const womensWearMenu = (
@@ -106,43 +117,41 @@ const HeaderLayout: React.FC = () => {
       <nav className={style.navigation}>
         <div className={style.logo}>
           <Link href="/">
-            <a>Logo</a>
+            <a className={style.list}>Outfit<span className={style.logoDomain}>.md</span></a>
           </Link>
         </div>
         <ul className={style.listWrap}>
           <li>
-            <Dropdown overlay={womensWearMenu} placement="bottomLeft">
+            <Dropdown overlay={womensWearMenu} placement="bottomLeft" className={style.list}>
               <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                Womenswear
+                FEMEI
             </a>
             </Dropdown>
           </li>
           <li>
-            <Dropdown overlay={mensWearMenu} placement="bottomLeft">
+            <Dropdown overlay={mensWearMenu} placement="bottomLeft" className={style.list}>
               <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                Menswear
-            </a>
+                BARBAȚI
+              </a>
             </Dropdown>
           </li>
           <li>
             <Link href="/search">
-              <a>Search</a>
+              <a className={style.list}>Caută</a>
             </Link></li>
           <li>
-            <Link href="/create">
-              <a>Sell</a>
-            </Link>
+            <a onClick={handlePermission} className={style.list}>Vinde</a>
           </li>
           <li>
             <ProfileButton />
           </li>
           <li>
             <Link href="/login">
-              <a>Login</a>
+              <a className={style.list}>Login</a>
             </Link>
             /
             <Link href="/signup">
-              <a>Logout</a>
+              <a className={style.list}>Logout</a>
             </Link>
           </li>
         </ul>
