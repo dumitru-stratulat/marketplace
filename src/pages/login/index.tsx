@@ -3,7 +3,7 @@ import axios from "axios";
 import Router from "next/router";
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import Link from "next/link"; s
+import Link from "next/link"; 
 import style from "./login.module.css";
 import { ContextProps, AppContext } from "context/AppContext";
 
