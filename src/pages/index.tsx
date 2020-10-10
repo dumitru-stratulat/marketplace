@@ -7,33 +7,50 @@ import { Product } from 'interfaces/interfaces'
 import Link from 'next/Link';
 import style from './index.module.css';
 import { AppContext } from "context/AppContext";
+import { useInfiniteQuery } from "react-query";
+import { getSearchedProducts } from "api/search";
 
 export default function HomePage({ randomProducts, latestProducts }: any) {
   const ctx = useContext(AppContext);
+
   return (
     <>
       <HeaderLayout />
       <div>
         <div className={style.imageContent}>
-          <h1 className={style.imageContentHeader}>Discover unique fashion </h1>
+          <h3 className={style.imageContentHeader3}>
+            CUMPĂRĂ.VINDE
+          </h3>
+          <div className={style.imageContentParagraph}>
+            <p>
+              Platformă gratuită
+            </p>
+            <p>
+              pentru vînzare cumpărare
+            </p>
+            <p>
+              a articolilor de îmbrăcăminte
+            </p>
+          </div>
+
           <div className={style.leftImage}></div>
-          <img src={require('../../public/images/homebg.jpeg')} alt="backgroundimage" className={style.mainImage} />
+          <img src={require('../../public/images/homebg.jpg')} alt="backgroundimage" className={style.mainImage} />
         </div>
         <div className={style.mainTextContainer}>
           <h1 className={style.header1}>
-            BUY.SELL
+            CUMPĂRĂ.VINDE
           </h1>
           <h1 className={style.header1}>
-            DISCOVER UNIQUE
+            Platformă gratuită
           </h1>
           <h1 className={style.header1}>
-            FASHION
+            pentru vînzare cumpărare
           </h1>
-          <h2>
-            Whatever your style. Find it on site
-          </h2>
+          <h1 className={style.header1}>
+            a articolilor de îmbrăcăminte
+          </h1>
         </div>
-        <h1 className={style.header2} >Latest products</h1>
+        <h1 className={style.header2} >Cele mai recente</h1>
         <Row
           justify="center"
           className={style.wrap}
@@ -53,11 +70,12 @@ export default function HomePage({ randomProducts, latestProducts }: any) {
                   <img src={`https://s3.eu-central-1.amazonaws.com/outfit.md/${product.imagesUrl[0]}`} className={style.image} />
                 </a>
               </Link>
-              <p className={style.price}>${product.price}</p>
+              <p className={style.price}>{product.price} lei</p>
             </Col>
           ))}
         </Row>
-        <h2 className={style.header2}>Product we love</h2>
+        <h2 className={style.header2}>Random</h2>
+
         <Row justify="center" >
           {randomProducts.map((product: Product, key: number) => (
             <Col
@@ -73,10 +91,11 @@ export default function HomePage({ randomProducts, latestProducts }: any) {
                   <img src={`https://s3.eu-central-1.amazonaws.com/outfit.md/${product.imagesUrl[0]}`} className={style.image} />
                 </a>
               </Link>
-              <p className={style.price}>${product.price}</p>
+              <p className={style.price}>{product.price} lei</p>
             </Col>
           ))}
         </Row>
+
       </div>
       <FooterLayout />
     </>
