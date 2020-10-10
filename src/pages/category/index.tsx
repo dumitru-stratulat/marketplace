@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Row, Col } from 'antd';
 import style from './category.module.css';
 import { Product } from 'interfaces/interfaces';
-import Link from 'next/Link';
+import Link from 'next/link';
 import HeaderLayout from 'components/HeaderLayout/HeaderLayout';
 import FooterLayout from 'components/FooterLayout/FooterLayout';
 import { useInfiniteQuery } from 'react-query';
