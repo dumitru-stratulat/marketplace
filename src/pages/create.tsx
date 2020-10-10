@@ -5,7 +5,9 @@ import {
   Button,
   Cascader,
   InputNumber,
-  Upload
+  Upload,
+  Row,
+  Col
 } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import { addProduct } from 'api/profile';
@@ -16,21 +18,9 @@ import HeaderLayout from 'components/HeaderLayout/HeaderLayout';
 import FooterLayout from 'components/FooterLayout/FooterLayout';
 import { sizeOptions } from 'utils/sizeOptions';
 import { conditionOptions } from 'utils/conditionOptions';
+import Router from 'next/router';
 
-const onPreview = async (file: any) => {
-  let src = file.url;
-  if (!src) {
-    src = await new Promise(resolve => {
-      const reader: any = new FileReader();
-      reader.readAsDataURL(file.originFileObj);
-      reader.onload = () => resolve(reader.result);
-    });
-  }
-  const image = new Image();
-  image.src = src;
-  const imgWindow: Window | null = window.open(src);
-  imgWindow && imgWindow.document.write(image.outerHTML);
-};
+
 
 interface OnFinish {
   title: string;
@@ -39,6 +29,7 @@ interface OnFinish {
   price: number;
   condition: string[];
   size: string[];
+  contactNumber: number;
 }
 
 export default function createProduct() {
@@ -47,16 +38,29 @@ export default function createProduct() {
   if (!ctx) {
     throw new Error('You probably forgot to put <AppProvider>.');
   }
-
+  // const onPreview = async (file: any) => {
+  //   let src = file.url;
+  //   if (!src) {
+  //     src = await new Promise(resolve => {
+  //       const reader: any = new FileReader();
+  //       reader.readAsDataURL(file.originFileObj);
+  //       reader.onload = () => resolve(reader.result);
+  //     });
+  //   }
+  //   const image = new Image();
+  //   image.src = src;
+  //   const imgWindow: Window | null = window.open(src);
+  //   imgWindow && imgWindow.document.write(image.outerHTML);
+  // };
   const onChange = ({ fileList: newFileList }: { fileList: any }) => {
     setFileList(newFileList);
   };
-  const onFinish = ({ title, content, category, price, condition, size }: OnFinish) => {
+  const onFinish = async ({ title, content, category, price, condition, size, contactNumber }: OnFinish) => {
     category = [category[0], category[2]];
-    addProduct(title, content, category, price, fileList, ctx.userDetails.username, condition[0], size[1]);
+    await addProduct(title, content, category, price, fileList, ctx.userDetails.username, condition[0], size[1], contactNumber);
+    // await Router.push(`/profile/${ctx.userDetails.userId}`);
+
   }
-
-
   return (
     <div>
       <HeaderLayout />
@@ -70,51 +74,147 @@ export default function createProduct() {
         layout="horizontal"
         onFinish={onFinish}
       >
-        <Form.Item label="Input" name="title">
+        <Form.Item
+          label="Titlu"
+          name="title"
+          rules={[
+            {
+              required: true,
+              message: 'Titlul este obligatoriu',
+            },
+            {
+              max: 100,
+              message: 'Titlul este prea lung'
+            },
+            {
+              min: 5,
+              message: 'Titlul este prea scurt'
+            }
+          ]}>
           <Input />
         </Form.Item>
-        <Form.Item label="Description" name="content">
+        <Form.Item
+          label="Descriptie:"
+          name="content"
+          rules={[
+            {
+              required: true,
+              message: 'Descripția este obligatorie',
+            },
+            {
+              max: 500,
+              message: 'Descriptia este prea lunga'
+            },
+            {
+              min: 5,
+              message: 'Descripția este prea scurta'
+            }
+          ]}
+        >
           <Input.TextArea />
         </Form.Item>
-        <Form.Item label="Categories" name="category">
+        <Form.Item
+          label="Categorie:"
+          name="category"
+          rules={[
+            {
+              required: true,
+              message: 'Categoria este obligatorie',
+            }]}
+        >
           <Cascader
             options={categoryOptions}
             expandTrigger="hover"
           />
         </Form.Item>
-        <Form.Item label="Upload">
+        <Form.Item
+          label="Încarcă"
+          rules={[
+            {
+              required: true,
+              message: 'Încarcă imaginea',
+            }]}
+        >
           <ImgCrop rotate>
             <Upload
               listType="picture-card"
               fileList={fileList}
               onChange={onChange}
-              onPreview={onPreview}
+              // onPreview={onPreview}
               name="images"
             >
-              {fileList.length < 5 && '+ Upload'}
+              {fileList.length < 5 && '+ Încarcă'}
             </Upload>
           </ImgCrop>
         </Form.Item>
-        <Form.Item label="Conditie" name="condition">
+        <Form.Item
+          label="Condiție"
+          name="condition"
+          rules={[
+            {
+              required: true,
+              message: 'Seteaza conditia articolului',
+            }]}
+        >
           <Cascader
             options={conditionOptions}
             expandTrigger="hover"
           />
         </Form.Item>
-        <Form.Item label="Marime" name="size">
+        <Form.Item
+          label="Marime"
+          name="size"
+          rules={[
+            {
+              required: true,
+              message: 'Seteaza marimea',
+            }]}
+        >
           <Cascader
             options={sizeOptions}
             expandTrigger="hover"
           />
         </Form.Item>
-        <Form.Item label="Price" name="price">
-          <InputNumber />
+        <Form.Item
+          label="Numar de contact:"
+          name="contactNumber"
+          rules={[
+            {
+              required: true,
+              message: 'Introdu numar de telefon',
+            },
+            {
+              min: 4,
+              message: 'Introduceți număr de telefon valid'
+            },
+            {
+              max: 12,
+              message: 'Introduceți număr de telefon valid'
+            }
+          ]}
+        >
+          <Input
+            type="number"
+          />
         </Form.Item>
-        <Form.Item label="Add">
-          <Button type="primary" htmlType="submit"> Post</Button>
+        <Form.Item
+          label="Preț (lei):"
+          name="price"
+          rules={[
+            {
+              required: true,
+              message: 'Introduceți numarul',
+            }]}
+        >
+          <InputNumber
+            min={0}
+            type="number"
+          />
+        </Form.Item>
+        <Form.Item label=" ">
+          <Button type="primary" htmlType="submit"> Postează</Button>
         </Form.Item>
       </Form>
-      <img src="require" alt="" />
       <FooterLayout />
     </div>
   )
