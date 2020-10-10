@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import style from "./HeaderLayout.module.css";
 import { Menu, Dropdown } from "antd";
-import Link from "next/Link";
+import Link from "next/link";
 import axios from 'axios';
 import ProfileButton from '../ProfileButton/ProfileButton';
 import Router from "next/router";
