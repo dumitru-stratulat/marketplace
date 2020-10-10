@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { getProfile } from 'api/profile';
 import { Row, Col, Avatar } from 'antd';
-import Link from 'next/Link';
+import Link from 'next/link';
 import style from './profile.module.css'
 import { User, Product } from 'interfaces/interfaces'
 import HeaderLayout from "components/HeaderLayout/HeaderLayout";

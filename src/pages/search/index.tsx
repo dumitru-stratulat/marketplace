@@ -6,7 +6,7 @@ import { getSearchedProducts } from 'api/search';
 import Router, { useRouter } from 'next/router';
 import style from './search.module.css'
 import { Col, Row } from 'antd';
-import Link from 'next/Link';
+import Link from 'next/link';
 import { Product } from 'interfaces/interfaces';
 
 export default function Search({ query }: any) {

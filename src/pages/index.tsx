@@ -4,7 +4,7 @@ import FooterLayout from "components/FooterLayout/FooterLayout";
 import { getHomeProducts } from 'api/home';
 import { Row, Col } from 'antd';
 import { Product } from 'interfaces/interfaces'
-import Link from 'next/Link';
+import Link from 'next/link';
 import style from './index.module.css';
 import { AppContext } from "context/AppContext";
 import { useInfiniteQuery } from "react-query";
