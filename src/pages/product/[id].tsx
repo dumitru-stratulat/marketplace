@@ -1,7 +1,6 @@
 import React, { useRef, useState, useContext } from "react";
 import Router, { useRouter } from "next/router";
 import axios from 'axios';
-import { getProduct } from 'api/product';
 import HeaderLayout from "components/HeaderLayout/HeaderLayout";
 import FooterLayout from "components/FooterLayout/FooterLayout";
 import style from './product.module.css'
@@ -46,7 +45,6 @@ export default function Product({ product, user }: any) {
   }
   return (
     <>
-      {console.log(user)}
       <HeaderLayout />
       <div className={style.container}>
         <div className={style.imagesWrap}>
@@ -73,31 +71,36 @@ export default function Product({ product, user }: any) {
           <h2>{product.title}</h2>
           <p>{product.content}</p>
           <div className={style.piceWrap}>
-            <span>Price</span>
+            <span>Preț:</span>
             <span>{product.price}</span>
           </div>
           <Divider className={style.divider} />
           <div className={style.piceWrap}>
-            <span>Size</span>
-            <span>S</span>
+            <span>Mărime:</span>
+            <span>{product.size}</span>
           </div>
           <Divider className={style.divider} />
           <div className={style.piceWrap}>
-            <span>Condtition</span>
-            <span>Good</span>
+            <span>Condiție:</span>
+            <span>{product.condition}</span>
           </div>
           <Divider className={style.divider} />
           <div className={style.deleteButtonWrap}>
             <p>Adaugat {product.createdAt.split("T")[0]}</p>
             <Button onClick={confirm} danger>Sterge</Button>
           </div>
-          <div className={style.pofileWrap}>
-            <Avatar size={50} icon={<UserOutlined />} />
-            <div>
-              <p className={style.username}>{user.username}</p>
-              <p className={style.location}>{user.location[0]}, {user.location[1]}</p>
-            </div>
+          <div className={style.buyButtton}>
+            {product.contactNumber}
           </div>
+          {user &&
+            <div className={style.pofileWrap}>
+              <Avatar size={50} icon={<UserOutlined />} />
+              <div>
+                <p className={style.username}>{user.username}</p>
+                <p className={style.location}>{user.location[0]}, {user.location[1]}</p>
+              </div>
+            </div>
+          }
         </div>
       </div>
       <FooterLayout />

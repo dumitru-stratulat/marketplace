@@ -6,24 +6,28 @@ type Props = {
   children: React.ReactNode;
 };
 export interface ContextProps {
-  userDetails: User;
+  userDetails: any;
+  setUserInfo: () => void
 }
 export const AppContext = createContext<ContextProps | null>(null)
 
 export const AppProvider = ({ children }: Props) => {
-  const [userDetails, setUserDetails] = useState();
+  const [userDetails, setUserDetails] = useState({});
 
   useEffect(() => {
     setUserInfo()
   }, [])
 
   const setUserInfo = async () => {
-    setUserDetails(await getUserInfo());
+    if (localStorage.getItem('token')) {
+      setUserDetails(await getUserInfo());
+    }
   };
   return (
     <AppContext.Provider
       value={{
         userDetails,
+        setUserInfo
       }}
     >
       {children}

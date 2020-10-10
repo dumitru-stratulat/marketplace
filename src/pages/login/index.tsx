@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import Router from "next/router";
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import Link from "next/link";
-
+import Link from "next/Link";
 import style from "./login.module.css";
+import { ContextProps, AppContext } from "context/AppContext";
 
 interface Value {
   email: string;
@@ -13,8 +13,11 @@ interface Value {
 }
 
 const Login = () => {
+  const ctx: ContextProps | null = useContext(AppContext);
+  if (!ctx) {
+    throw new Error('You probably forgot to put <AppProvider>.');
+  }
   const [status, setStatus] = useState<Status>("pending");
-
   const auth = async (value: Value) => {
     try {
       const res = await axios.post("https://reactive.loca.lt/login/", {
@@ -23,6 +26,7 @@ const Login = () => {
       });
       localStorage.setItem("token", res.data.token);
       setStatus("success");
+      await ctx.setUserInfo()
       Router.push("/");
     } catch (err) {
       setStatus("error");
@@ -56,26 +60,13 @@ const Login = () => {
         <Form.Item
           name="password"
           rules={[{ required: true, message: "Please input your Password!" }]}
-          label="Password"
+          label="Parolă"
         >
           <Input
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
-            placeholder="Password"
+            placeholder="Parolă"
           />
-        </Form.Item>
-        <Form.Item>
-          <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
-
-          <a
-            className={style.loginForgot}
-            href=""
-            onClick={(e) => showAlert(e)}
-          >
-            Forgot password
-          </a>
         </Form.Item>
         <Form.Item>
           <Button
@@ -83,11 +74,11 @@ const Login = () => {
             htmlType="submit"
             className={style.loginButton}
           >
-            Log in
+            Intră
           </Button>
-          Or{" "}
+          sau {" "}
           <Link href="/signup">
-            <a href="">register now!</a>
+            <a href="">Înregistrare</a>
           </Link>
         </Form.Item>
         {status === "error" && (

@@ -7,10 +7,10 @@ import Router, { useRouter } from 'next/router';
 import style from './search.module.css'
 import { Col, Row } from 'antd';
 import Link from 'next/Link';
+import { Product } from 'interfaces/interfaces';
 
-export default function Search(params: any) {
-  const [input, setInput] = useState()
-  const { query: { q: query } } = useRouter();
+export default function Search({ query }: any) {
+  const [input, setInput] = useState<string>()
 
   const {
     status,
@@ -20,16 +20,15 @@ export default function Search(params: any) {
     isFetchingMore,
     fetchMore,
     canFetchMore
-  }: any = useInfiniteQuery(['getSearchedProducts', query],
+  }: any = useInfiniteQuery(['getSearchedProducts', query.q],
     getSearchedProducts,
     {
-      getFetchMore: () => {
-        // if (lastGroup.page_current + 1 > lastGroup.page_total) {
-        //   return false;
-        // } else {
-        //   return lastGroup.page_current + 1;
-        // }
-        return 1;
+      getFetchMore: (lastGroup: any) => {
+        if (lastGroup.currentPage * 20 + 1 > lastGroup.totalItems) {
+          return false;
+        } else {
+          return lastGroup.currentPage + 1;
+        }
       }
     })
 
@@ -41,11 +40,11 @@ export default function Search(params: any) {
         onChange={e => setInput(e.target.value)}
         className={style.searchInput}
       />
-      <button onClick={() => { Router.push(`/search/?q=${input}`) }}>search</button>
+      <button onClick={() => { Router.push(`/search/?q=${input}`) }}>Caută</button>
       {status === 'loading' ? (
-        <p>Loading...</p>
+        !query.q ? null : <p>Loading...</p>
       ) : status === 'error' ? (
-        <span>Error: {error.message}</span>
+        !query.q ? null : <span>:</span>
       ) : (
             <div>
               <Row
@@ -53,22 +52,24 @@ export default function Search(params: any) {
                 className={style.wrap}
                 gutter={[{ xs: 1, sm: 1, md: 10, lg: 10, xl: 10 }, { xs: 10, sm: 10 }]}
               >
-                {data[0].map((product: any, key: number) => (
-                  <Col
-                    key={key}
-                    xs={{ span: 8 }}
-                    sm={{ span: 8 }}
-                    md={{ span: 6 }}
-                    lg={{ span: 4 }}
-                    xl={{ span: 4 }}
-                  >
-                    <Link href='/product/[id]' as={`/product/${product._id}`}>
-                      <a >
-                        <img src={`http://localhost:8080/${product.imagesUrl[0]}`} className={style.image} />
-                      </a>
-                    </Link>
-                    <p className={style.price}>${product.price}</p>
-                  </Col>
+                {data.map((data: any, key: number) => (
+                  data.data.map((product: Product, key: number) => (
+                    <Col
+                      key={key}
+                      xs={{ span: 8 }}
+                      sm={{ span: 8 }}
+                      md={{ span: 6 }}
+                      lg={{ span: 4 }}
+                      xl={{ span: 4 }}
+                    >
+                      <Link href='/product/[id]' as={`/product/${product._id}`}>
+                        <a >
+                          <img src={`https://s3.eu-central-1.amazonaws.com/outfit.md/${product.imagesUrl[0]}`} className={style.image} />
+                        </a>
+                      </Link>
+                      <p className={style.price}>{product.price} lei</p>
+                    </Col>
+                  ))
                 ))}
               </Row>
             </div>
@@ -88,8 +89,15 @@ export default function Search(params: any) {
         </button>
       </div>
       <div>
-        {isFetching && !isFetchingMore ? 'Background Updating...' : null}
       </div>
     </div>
   )
+}
+
+export async function getServerSideProps({ query }: any) {
+  return {
+    props: {
+      query
+    }
+  }
 }

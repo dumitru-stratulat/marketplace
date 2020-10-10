@@ -1,19 +1,45 @@
 import React, { useRef, useEffect } from 'react';
 import { getProfile } from 'api/profile';
-import { Row, Col } from 'antd';
+import { Row, Col, Avatar } from 'antd';
 import Link from 'next/Link';
 import style from './profile.module.css'
 import { User, Product } from 'interfaces/interfaces'
 import HeaderLayout from "components/HeaderLayout/HeaderLayout";
 import FooterLayout from "components/FooterLayout/FooterLayout";
+import { UserOutlined } from '@ant-design/icons';
+import { useInfiniteQuery } from 'react-query';
+import { getSearchedProducts } from 'api/search';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
-export default function Profile({ user, products }: { user: User, products: Product[] }) {
+export default function Profile({ user }: any) {
+  const { query } = useRouter();
+  const {
+    status,
+    data,
+    error,
+    isFetching,
+    isFetchingMore,
+    fetchMore,
+    canFetchMore
+  }: any = useInfiniteQuery(['getProfile', query.id],
+    getProfile,
+    {
+      getFetchMore: (lastGroup: any) => {
+        if (lastGroup.currentPage * 20 + 1 > lastGroup.totalItems) {
+          return false;
+        } else {
+          return lastGroup.currentPage + 1;
+        }
+      }
+    })
+  const loadMoreButtonRef = React.useRef<HTMLButtonElement | null>(null);
   return (
     <div>
       <HeaderLayout />
       <div className={style.profileContainer}>
         <div className={style.profileWrap}>
-          <img src={require('./logo.jpg')} alt="" className={style.profilePicture} />
+          <Avatar size={110} style={{ backgroundColor: '#ffd77e' }} icon={<UserOutlined />} />
           <div>
             <h1>{user.profileTitle}</h1>
             <p>{user.username}</p>
@@ -24,36 +50,60 @@ export default function Profile({ user, products }: { user: User, products: Prod
           {user.profileDescription}
         </p>
       </div>
-      <Row justify="center" >
-        {products.map((product: Product, key: number) => (
-          <Col
-            key={key}
-            xs={{ span: 8 }}
-            sm={{ span: 8 }}
-            md={{ span: 8 }}
-            lg={{ span: 4 }}
-            xl={{ span: 4 }}
-          >
-            <Link href='/product/[id]' as={`/product/${product._id}`}>
-              <a >
-                <img src={`http://localhost:8080/${product.imagesUrl[0]}`} className={style.image} />
-              </a>
-            </Link>
-            <p className={style.price}>${product.price}</p>
-          </Col>
-        ))}
-      </Row>
+      {status === 'loading' ? (
+        <p>Loading...</p>
+      ) : status === 'error' ? (
+        <span>Error: {error.message}</span>
+      ) : (
+            <Row justify="center" >
+              {data.map((data: any, key: number) => (
+                data.data.map((product: Product, key: number) => (
+                  <Col
+                    key={key}
+                    xs={{ span: 8 }}
+                    sm={{ span: 8 }}
+                    md={{ span: 8 }}
+                    lg={{ span: 4 }}
+                    xl={{ span: 4 }}
+                  >
+                    <Link href='/product/[id]' as={`/product/${product._id}`}>
+                      <a >
+                        <img src={`https://s3.eu-central-1.amazonaws.com/outfit.md/${product.imagesUrl[0]}`} className={style.image} />
+                      </a>
+                    </Link>
+                    <p className={style.price}>{product.price} lei</p>
+                  </Col>
+                ))
+              ))}
+            </Row>
+          )
+      }
+      <div>
+        <button
+          ref={loadMoreButtonRef}
+          onClick={() => fetchMore()}
+          disabled={!canFetchMore || isFetchingMore}
+        >
+          {isFetchingMore
+            ? 'Loading more...'
+            : canFetchMore
+              ? 'Load More'
+              : 'Nothing more to load'}
+        </button>
+      </div>
+      <div>
+        {isFetching && !isFetchingMore ? 'Background Updating...' : null}
+      </div>
       <FooterLayout />
     </div >
   )
 }
 
 export async function getServerSideProps({ params }: any) {
-  const profileData = await getProfile(params.id);
+  const { user } = await getProfile('key', params.id);
   return {
     props: {
-      user: profileData.user,
-      products: profileData.products
+      user
     }
   }
 }
