@@ -22,7 +22,7 @@ export default function Profile({ user }) {
     isFetchingMore,
     fetchMore,
     canFetchMore
-  } = useInfiniteQuery(['getProfile', query.id],
+  }: any = useInfiniteQuery(['getProfile', query.id],
     getProfile,
     {
       getFetchMore: (lastGroup) => {

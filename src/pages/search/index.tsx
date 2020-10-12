@@ -20,7 +20,7 @@ export default function Search({ query }) {
     isFetchingMore,
     fetchMore,
     canFetchMore
-  } = useInfiniteQuery(['getSearchedProducts', query.q],
+  }: any = useInfiniteQuery(['getSearchedProducts', query.q],
     getSearchedProducts,
     {
       getFetchMore: (lastGroup) => {

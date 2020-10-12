@@ -22,7 +22,7 @@ export default function Category({ query }) {
     isFetchingMore,
     fetchMore,
     canFetchMore
-  } = useInfiniteQuery(['getProductsByCategory', query],
+  }: any = useInfiniteQuery(['getProductsByCategory', query],
     getProductsByCategory,
     {
       getFetchMore: (lastGroup) => {
@@ -40,7 +40,7 @@ export default function Category({ query }) {
       {status === 'loading' ? (
         <p>Loading...</p>
       ) : status === 'error' ? (
-        <span>Error: {error.message}</span>
+        <span>Eroare</span>
       ) : (
             <Row
               justify="center"
