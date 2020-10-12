@@ -75,7 +75,7 @@ export default function Search({ query }) {
             </div>
           )
       }
-      <div className={style.loadButtonWrap}>
+      <div className="loadButtonWrap">
         <button
           ref={loadMoreButtonRef}
           onClick={() => fetchMore()}

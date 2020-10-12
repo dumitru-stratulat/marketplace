@@ -78,17 +78,18 @@ export default function Profile({ user }) {
             </Row>
           )
       }
-      <div>
+      <div className="loadButtonWrap">
         <button
           ref={loadMoreButtonRef}
           onClick={() => fetchMore()}
           disabled={!canFetchMore || isFetchingMore}
+          className="loadButton"
         >
           {isFetchingMore
-            ? 'Loading more...'
+            ? 'Se incarcă...'
             : canFetchMore
-              ? 'Load More'
-              : 'Nothing more to load'}
+              ? 'Încarcă mai mult'
+              : 'Nu sunt rezultate'}
         </button>
       </div>
       <div>
