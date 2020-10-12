@@ -1,0 +1,12 @@
+.loadButtonWrap {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+.loadButton {
+  background-color: black;
+  color: white;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 10px;
+}

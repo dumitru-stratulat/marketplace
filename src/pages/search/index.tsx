@@ -42,7 +42,7 @@ export default function Search({ query }) {
       />
       <button onClick={() => { Router.push(`/search/?q=${input}`) }}>Caută</button>
       {status === 'loading' ? (
-        !query.q ? null : <p>Loading...</p>
+        !query.q ? null : <p>Se incarcă...</p>
       ) : status === 'error' ? (
         !query.q ? null : <span>:</span>
       ) : (
@@ -75,17 +75,18 @@ export default function Search({ query }) {
             </div>
           )
       }
-      <div>
+      <div className={style.loadButtonWrap}>
         <button
           ref={loadMoreButtonRef}
           onClick={() => fetchMore()}
           disabled={!canFetchMore || isFetchingMore}
+          className="loadButton"
         >
           {isFetchingMore
-            ? 'Loading more...'
+            ? 'Se incarcă...'
             : canFetchMore
-              ? 'Load More'
-              : 'Nothing more to load'}
+              ? 'Încarcă mai mult'
+              : 'Nu sunt rezultate'}
         </button>
       </div>
       <div>
