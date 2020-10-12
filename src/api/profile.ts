@@ -2,7 +2,6 @@ import axios from 'axios';
 import { File } from 'interfaces/interfaces'
 
 export const getProfile = async (key: string, query: string, page = 1) => {
-  console.log(page)
   const response = await axios.get(`https://reactive.loca.lt/profile/${query}?page=${page}`)
   return response.data
 }

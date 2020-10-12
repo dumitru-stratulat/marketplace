@@ -38,27 +38,27 @@ export default function createProduct() {
   if (!ctx) {
     throw new Error('You probably forgot to put <AppProvider>.');
   }
-  // const onPreview = async (file: any) => {
-  //   let src = file.url;
-  //   if (!src) {
-  //     src = await new Promise(resolve => {
-  //       const reader: any = new FileReader();
-  //       reader.readAsDataURL(file.originFileObj);
-  //       reader.onload = () => resolve(reader.result);
-  //     });
-  //   }
-  //   const image = new Image();
-  //   image.src = src;
-  //   const imgWindow: Window | null = window.open(src);
-  //   imgWindow && imgWindow.document.write(image.outerHTML);
-  // };
-  const onChange = ({ fileList: newFileList }: { fileList: any }) => {
+  const onPreview = async (file) => {
+    let src = file.url;
+    if (!src) {
+      src = await new Promise(resolve => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj);
+        reader.onload = () => resolve(reader.result);
+      });
+    }
+    const image = new Image();
+    image.src = src;
+    const imgWindow: Window | null = window.open(src);
+    imgWindow && imgWindow.document.write(image.outerHTML);
+  };
+  const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
   const onFinish = async ({ title, content, category, price, condition, size, contactNumber }: OnFinish) => {
     category = [category[0], category[2]];
     await addProduct(title, content, category, price, fileList, ctx.userDetails.username, condition[0], size[1], contactNumber);
-    // await Router.push(`/profile/${ctx.userDetails.userId}`);
+    await Router.push(`/profile/${ctx.userDetails.userId}`);
 
   }
   return (

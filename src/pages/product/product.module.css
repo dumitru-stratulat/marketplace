@@ -1,10 +1,17 @@
 .container {
   display: flex;
+  justify-content: center;
+  padding-right: 15%;
 }
 .image {
   width: 100%;
-  max-width: 500px;
+  max-width: 640px;
   height: auto;
+  margin: 0 16px 16px 16px;
+}
+.imagesWrap {
+  display: flex;
+  flex-direction: column;
 }
 .divider {
   margin: 10px;
@@ -77,6 +84,12 @@
 .buyButtton:hover {
   background-color: #666;
   cursor: pointer;
+}
+@media screen and (max-width: 1280px) {
+  .container {
+    justify-content: flex-start;
+    padding-right: 0;
+  }
 }
 @media screen and (max-width: 768px) {
   .imagesWrap {

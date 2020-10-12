@@ -10,7 +10,7 @@ import { AppContext } from "context/AppContext";
 import { useInfiniteQuery } from "react-query";
 import { getSearchedProducts } from "api/search";
 
-export default function HomePage({ randomProducts, latestProducts }: any) {
+export default function HomePage({ randomProducts, latestProducts }) {
   const ctx = useContext(AppContext);
 
   return (
@@ -76,7 +76,10 @@ export default function HomePage({ randomProducts, latestProducts }: any) {
         </Row>
         <h2 className={style.header2}>Random</h2>
 
-        <Row justify="center" >
+        <Row
+          justify="center"
+          className={style.wrap}
+        >
           {randomProducts.map((product: Product, key: number) => (
             <Col
               key={key}
@@ -95,7 +98,6 @@ export default function HomePage({ randomProducts, latestProducts }: any) {
             </Col>
           ))}
         </Row>
-
       </div>
       <FooterLayout />
     </>

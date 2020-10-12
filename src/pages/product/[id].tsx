@@ -8,17 +8,17 @@ import { Divider, Carousel, Avatar, Modal, Button } from "antd";
 import { RightOutlined, LeftOutlined, UserOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import { ContextProps, AppContext } from "context/AppContext";
 
-export default function Product({ product, user }: any) {
+export default function Product({ product, user }) {
   const ctx: ContextProps | null = useContext(AppContext);
   if (!ctx) {
     throw new Error('You probably forgot to put <AppProvider>.');
   }
 
-  const NextArrow = (e: any) => {
+  const NextArrow = (e) => {
     const { onClick } = e;
     return <button className={style.nextArrow} onClick={onClick}><RightOutlined /></button>
   }
-  const PrevArrrow = (e: any) => {
+  const PrevArrrow = (e) => {
     const { onClick } = e;
     return <button className={style.backArrow} onClick={onClick}><LeftOutlined /></button>
   }
@@ -49,11 +49,13 @@ export default function Product({ product, user }: any) {
       <div className={style.container}>
         <div className={style.imagesWrap}>
           {product.imagesUrl.map((image: string, key: number) => (
-            <img
-              src={`https://s3.eu-central-1.amazonaws.com/outfit.md/${image}`}
-              alt="product image"
-              className={style.image}
-            />
+            <div>
+              <img
+                src={`https://s3.eu-central-1.amazonaws.com/outfit.md/${image}`}
+                alt="product image"
+                className={style.image}
+              />
+            </div>
           ))}
         </div>
         <div className={style.carouselWrap}>
@@ -87,7 +89,10 @@ export default function Product({ product, user }: any) {
           <Divider className={style.divider} />
           <div className={style.deleteButtonWrap}>
             <p>Adaugat {product.createdAt.split("T")[0]}</p>
-            <Button onClick={confirm} danger>Sterge</Button>
+
+            {user.userId === ctx.userDetails.userId &&
+              <Button onClick={confirm} danger>Sterge</Button>
+            }
           </div>
           <div className={style.buyButtton}>
             {product.contactNumber}
@@ -108,7 +113,7 @@ export default function Product({ product, user }: any) {
   );
 }
 
-export async function getServerSideProps({ params }: any) {
+export async function getServerSideProps({ params }) {
   const response = await axios.get(`https://reactive.loca.lt/product/${params.id}`)
   return {
     props: {

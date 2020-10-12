@@ -9,7 +9,7 @@ import { Col, Row } from 'antd';
 import Link from 'next/link';
 import { Product } from 'interfaces/interfaces';
 
-export default function Search({ query }: any) {
+export default function Search({ query }) {
   const [input, setInput] = useState<string>()
 
   const {
@@ -20,10 +20,10 @@ export default function Search({ query }: any) {
     isFetchingMore,
     fetchMore,
     canFetchMore
-  }: any = useInfiniteQuery(['getSearchedProducts', query.q],
+  } = useInfiniteQuery(['getSearchedProducts', query.q],
     getSearchedProducts,
     {
-      getFetchMore: (lastGroup: any) => {
+      getFetchMore: (lastGroup) => {
         if (lastGroup.currentPage * 20 + 1 > lastGroup.totalItems) {
           return false;
         } else {
@@ -52,7 +52,7 @@ export default function Search({ query }: any) {
                 className={style.wrap}
                 gutter={[{ xs: 1, sm: 1, md: 10, lg: 10, xl: 10 }, { xs: 10, sm: 10 }]}
               >
-                {data.map((data: any, key: number) => (
+                {data.map((data, key: number) => (
                   data.data.map((product: Product, key: number) => (
                     <Col
                       key={key}
@@ -94,7 +94,7 @@ export default function Search({ query }: any) {
   )
 }
 
-export async function getServerSideProps({ query }: any) {
+export async function getServerSideProps({ query }) {
   return {
     props: {
       query

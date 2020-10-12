@@ -6,6 +6,7 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import style from "./signup.module.css";
 import { locationOptions } from "utils/locationOptions";
 import { ContextProps, AppContext } from "context/AppContext";
+import HeaderLayout from "components/HeaderLayout/HeaderLayout";
 
 interface Value {
   email: string;
@@ -44,6 +45,7 @@ const Signup = () => {
 
   return (
     <div>
+      <HeaderLayout />
       <Form
         name="normal_login"
         className={style.signupForm}

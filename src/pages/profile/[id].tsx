@@ -12,7 +12,7 @@ import { getSearchedProducts } from 'api/search';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 
-export default function Profile({ user }: any) {
+export default function Profile({ user }) {
   const { query } = useRouter();
   const {
     status,
@@ -22,10 +22,10 @@ export default function Profile({ user }: any) {
     isFetchingMore,
     fetchMore,
     canFetchMore
-  }: any = useInfiniteQuery(['getProfile', query.id],
+  } = useInfiniteQuery(['getProfile', query.id],
     getProfile,
     {
-      getFetchMore: (lastGroup: any) => {
+      getFetchMore: (lastGroup) => {
         if (lastGroup.currentPage * 20 + 1 > lastGroup.totalItems) {
           return false;
         } else {
@@ -56,7 +56,7 @@ export default function Profile({ user }: any) {
         <span>Error: {error.message}</span>
       ) : (
             <Row justify="center" >
-              {data.map((data: any, key: number) => (
+              {data.map((data, key: number) => (
                 data.data.map((product: Product, key: number) => (
                   <Col
                     key={key}
@@ -99,7 +99,7 @@ export default function Profile({ user }: any) {
   )
 }
 
-export async function getServerSideProps({ params }: any) {
+export async function getServerSideProps({ params }) {
   const { user } = await getProfile('key', params.id);
   return {
     props: {

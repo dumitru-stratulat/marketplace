@@ -10,7 +10,7 @@ import { getUserInfo } from "context/queries";
 const { SubMenu } = Menu;
 
 const HeaderLayout: React.FC = () => {
-  const handleClick = async (gender: string, e: any) => {
+  const handleClick = async (gender: string, e) => {
     Router.push(`/category?gender=${gender}&category=${e.keyPath[0]}`);
   }
   const handlePermission = async () => {

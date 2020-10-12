@@ -3,9 +3,10 @@ import axios from "axios";
 import Router from "next/router";
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import Link from "next/link"; 
+import Link from "next/link";
 import style from "./login.module.css";
 import { ContextProps, AppContext } from "context/AppContext";
+import HeaderLayout from "components/HeaderLayout/HeaderLayout";
 
 interface Value {
   email: string;
@@ -40,6 +41,7 @@ const Login = () => {
 
   return (
     <div>
+      <HeaderLayout />
       <Form
         name="normal_login"
         className={style.loginForm}

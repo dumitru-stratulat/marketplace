@@ -13,7 +13,7 @@ export interface Query {
   gender: string;
   category: string;
 }
-export default function Category({ query }: any) {
+export default function Category({ query }) {
   const {
     status,
     data,
@@ -22,10 +22,10 @@ export default function Category({ query }: any) {
     isFetchingMore,
     fetchMore,
     canFetchMore
-  }: any = useInfiniteQuery(['getProductsByCategory', query],
+  } = useInfiniteQuery(['getProductsByCategory', query],
     getProductsByCategory,
     {
-      getFetchMore: (lastGroup: any) => {
+      getFetchMore: (lastGroup) => {
         if (lastGroup.currentPage * 20 + 1 > lastGroup.totalItems) {
           return false;
         } else {
@@ -47,7 +47,7 @@ export default function Category({ query }: any) {
               className={style.wrap}
               gutter={[{ xs: 1, sm: 1, md: 10, lg: 10, xl: 10 }, { xs: 10, sm: 10 }]}
             >
-              {data.map((data: any, key: number) => (
+              {data.map((data, key: number) => (
                 data.data.map((product: Product, key: number) => (
                   <Col
                     key={key}
@@ -90,7 +90,7 @@ export default function Category({ query }: any) {
   )
 }
 
-export async function getServerSideProps({ query }: any) {
+export async function getServerSideProps({ query }) {
   return {
     props: {
       query
