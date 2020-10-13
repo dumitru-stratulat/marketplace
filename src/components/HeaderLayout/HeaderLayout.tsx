@@ -22,6 +22,10 @@ const HeaderLayout: React.FC = () => {
       Router.push(`/create`);
     }
   }
+  const handleLogout = async () => {
+    localStorage.removeItem('token');
+    Router.push('/')
+  }
 
   const womensWearMenu = (
     <Menu
@@ -150,9 +154,10 @@ const HeaderLayout: React.FC = () => {
               <a className={style.list}>Login</a>
             </Link>
             /
-            <Link href="/signup">
-              <a className={style.list}>Logout</a>
-            </Link>
+              <a
+              className={style.list}
+              onClick={handleLogout}
+            >Logout</a>
           </li>
         </ul>
       </nav>

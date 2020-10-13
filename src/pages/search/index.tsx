@@ -35,6 +35,7 @@ export default function Search({ query }) {
   const loadMoreButtonRef = React.useRef<HTMLButtonElement | null>(null);
   return (
     <div className={style.wrap}>
+      <HeaderLayout />
       <input
         type="text"
         onChange={e => setInput(e.target.value)}

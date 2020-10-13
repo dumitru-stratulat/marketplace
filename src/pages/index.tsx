@@ -34,7 +34,7 @@ export default function HomePage({ randomProducts, latestProducts }) {
           </div>
 
           <div className={style.leftImage}></div>
-          <img src={require('../../public/images/homebg.jpg')} alt="backgroundimage" className={style.mainImage} />
+          <img src={require('../../public/images/homebg.jpeg')} alt="backgroundimage" className={style.mainImage} />
         </div>
         <div className={style.mainTextContainer}>
           <h1 className={style.header1}>
@@ -74,7 +74,7 @@ export default function HomePage({ randomProducts, latestProducts }) {
             </Col>
           ))}
         </Row>
-        <h2 className={style.header2}>Random</h2>
+        <h2 className={style.header2}>Diverse</h2>
 
         <Row
           justify="center"
