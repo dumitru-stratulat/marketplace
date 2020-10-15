@@ -2,7 +2,7 @@ import axios from 'axios';
 import { File } from 'interfaces/interfaces'
 
 export const getProfile = async (key: string, query: string, page = 1) => {
-  const response = await axios.get(`https://reactive.loca.lt/profile/${query}?page=${page}`)
+  const response = await axios.get(`${process.env.SERVER_ENDPOINT}profile/${query}?page=${page}`)
   return response.data
 }
 
@@ -31,7 +31,7 @@ export const addProduct = async (
   fileList.forEach((element: File) => {
     formData.append('image[]', element.originFileObj, `${username} ${element.name}`);
   });
-  const response = await axios.post('https://reactive.loca.lt/create',
+  const response = await axios.post('${process.env.SERVER_ENDPOINT}create',
     formData,
     {
       headers: {

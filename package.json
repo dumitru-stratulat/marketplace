@@ -2,7 +2,7 @@
   "name": "nextjs-ts-template",
   "private": true,
   "scripts": {
-    "dev": "next",
+    "dev": "AWS_ENDPOINT=https://s3.eu-central-1.amazonaws.com/outfit.md/ SERVER_ENDPOINT=https://outfit-md.herokuapp.com/ next",
     "build": "next build",
     "analyze": "ANALYZE=true yarn build",
     "storybook": "start-storybook",

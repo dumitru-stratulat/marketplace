@@ -3,7 +3,7 @@ import axios from 'axios';
 export const getUserInfo = async () => {
   try {
     const response = await axios.get(
-      `https://reactive.loca.lt/user`,
+      `${process.env.SERVER_ENDPOINT}user`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
