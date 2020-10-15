@@ -80,7 +80,7 @@ export default function Category({ query }) {
             ? 'Se incarcă...'
             : canFetchMore
               ? 'Încarcă mai mult'
-              : 'Nu sunt rezultate'}
+              : 'Nu mai sunt rezultate'}
         </button>
       </div>
       <div>

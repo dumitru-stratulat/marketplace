@@ -49,7 +49,7 @@ export default function Product({ product, user }) {
       <div className={style.container}>
         <div className={style.imagesWrap}>
           {product.imagesUrl.map((image: string, key: number) => (
-            <div>
+            <div key={key}>
               <img
                 src={`https://s3.eu-central-1.amazonaws.com/outfit.md/${image}`}
                 alt="product image"
@@ -65,6 +65,7 @@ export default function Product({ product, user }) {
                 src={`https://s3.eu-central-1.amazonaws.com/outfit.md/${image}`}
                 alt="product image"
                 className={style.image}
+                key={key}
               />
             ))}
           </Carousel>
@@ -89,8 +90,7 @@ export default function Product({ product, user }) {
           <Divider className={style.divider} />
           <div className={style.deleteButtonWrap}>
             <p>Adaugat {product.createdAt.split("T")[0]}</p>
-
-            {user.userId === ctx.userDetails.userId &&
+            {ctx.userDetails.userId && user.userId === ctx.userDetails.userId &&
               <Button onClick={confirm} danger>Sterge</Button>
             }
           </div>
