@@ -26,7 +26,7 @@ const Signup = () => {
 
   const auth = async (value: Value) => {
     try {
-      const res = await axios.post("${process.env.SERVER_ENDPOINT}signup/", {
+      const res = await axios.post("https://outfit-md.herokuapp.com/signup/", {
         email: value.email,
         username: value.username,
         password: value.password,

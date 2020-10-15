@@ -53,7 +53,7 @@ export default function HomePage({ randomProducts, latestProducts }) {
             >
               <Link href='/product/[id]' as={`/product/${product._id}`}>
                 <a >
-                  <img src={`${process.env.AWS_ENDPOINT}${product.imagesUrl[0]}`} className={style.image} />
+                  <img src={`https://s3.eu-central-1.amazonaws.com/outfit.md/${product.imagesUrl[0]}`} className={style.image} />
                 </a>
               </Link>
               <p className={style.price}>{product.price} lei</p>
@@ -77,7 +77,7 @@ export default function HomePage({ randomProducts, latestProducts }) {
             >
               <Link href='/product/[id]' as={`/product/${product._id}`}>
                 <a >
-                  <img src={`${process.env.AWS_ENDPOINT}${product.imagesUrl[0]}`} className={style.image} />
+                  <img src={`https://s3.eu-central-1.amazonaws.com/outfit.md/${product.imagesUrl[0]}`} className={style.image} />
                 </a>
               </Link>
               <p className={style.price}>{product.price} lei</p>

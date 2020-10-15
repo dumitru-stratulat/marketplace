@@ -21,7 +21,7 @@ const Login = () => {
   const [status, setStatus] = useState<Status>("pending");
   const auth = async (value: Value) => {
     try {
-      const res = await axios.post("${process.env.SERVER_ENDPOINT}login/", {
+      const res = await axios.post("https://outfit-md.herokuapp.com/login/", {
         email: value.email,
         password: value.password,
       });

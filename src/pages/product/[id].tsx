@@ -33,7 +33,7 @@ export default function Product({ product, user }) {
     });
   }
   const deletePost = async () => {
-    const response = await axios.delete(`${process.env.SERVER_ENDPOINT}product/${product._id}`,
+    const response = await axios.delete(`https://outfit-md.herokuapp.com/product/${product._id}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -51,7 +51,7 @@ export default function Product({ product, user }) {
           {product.imagesUrl.map((image: string, key: number) => (
             <div>
               <img
-                src={`${process.env.AWS_ENDPOINT}${image}`}
+                src={`https://s3.eu-central-1.amazonaws.com/outfit.md/${image}`}
                 alt="product image"
                 className={style.image}
               />
@@ -62,7 +62,7 @@ export default function Product({ product, user }) {
           <Carousel arrows={true} nextArrow={<NextArrow />} prevArrow={<PrevArrrow />}>
             {product.imagesUrl.map((image: string, key: number) => (
               <img
-                src={`${process.env.AWS_ENDPOINT}${image}`}
+                src={`https://s3.eu-central-1.amazonaws.com/outfit.md/${image}`}
                 alt="product image"
                 className={style.image}
               />
@@ -114,7 +114,7 @@ export default function Product({ product, user }) {
 }
 
 export async function getServerSideProps({ params }) {
-  const response = await axios.get(`${process.env.SERVER_ENDPOINT}product/${params.id}`)
+  const response = await axios.get(`https://outfit-md.herokuapp.com/product/${params.id}`)
   return {
     props: {
       product: response.data.product[0],

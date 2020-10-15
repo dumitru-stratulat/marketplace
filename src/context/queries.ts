@@ -3,7 +3,7 @@ import axios from 'axios';
 export const getUserInfo = async () => {
   try {
     const response = await axios.get(
-      `${process.env.SERVER_ENDPOINT}user`,
+      `https://outfit-md.herokuapp.com/user`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,

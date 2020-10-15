@@ -4,6 +4,6 @@ export interface Query {
   category: string;
 }
 export const getProductsByCategory = async (key: string, query: Query, page = 1) => {
-  const response = await axios.get(`${process.env.SERVER_ENDPOINT}category/${query.gender}/${query.category}?page=${page}`)
+  const response = await axios.get(`https://outfit-md.herokuapp.com/category/${query.gender}/${query.category}?page=${page}`)
   return response.data
 }
