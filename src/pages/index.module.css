@@ -54,7 +54,7 @@
   margin-top: 360px;
   margin-left: 5%;
   font-size: 30px;
-  font-weight: 800;
+  font-weight: 500;
   color: white;
 }
 .imageContentParagraph p {
@@ -74,16 +74,11 @@
   }
   .mainTextContainer {
     display: block;
-    background-color: #ffd77e;
+    background-color: #266e7c;
+    height: 200px;
   }
   .mainTextContainer h1 {
-    font-size: 3.2vh;
-  }
-  .mainTextContainer :first-child {
-    display: inline-block;
-    border: 1px solid black;
-    font-size: 9vw;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    font-size: 4.2vh;
+    color: white;
   }
 }

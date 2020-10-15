@@ -12,6 +12,8 @@ export const getUserInfo = async () => {
     );
     return response.data;
   } catch (err) {
+    console.log('erro')
+    localStorage.removeItem('token');
     return err.status = 500;
   }
 };

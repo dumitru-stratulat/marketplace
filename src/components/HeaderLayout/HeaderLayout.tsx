@@ -10,6 +10,10 @@ import { getUserInfo } from "context/queries";
 const { SubMenu } = Menu;
 
 const HeaderLayout: React.FC = () => {
+  const ctx = useContext(AppContext);
+  if (!ctx) {
+    throw new Error('You probably forgot to put <AppProvider>.');
+  }
   const handleClick = async (gender: string, e) => {
     Router.push(`/category?gender=${gender}&category=${e.keyPath[0]}`);
   }
@@ -150,14 +154,18 @@ const HeaderLayout: React.FC = () => {
             <ProfileButton />
           </li>
           <li>
-            <Link href="/login">
-              <a className={style.list}>Login</a>
-            </Link>
-            /
+            {ctx.userDetails.userId ?
               <a
-              className={style.list}
-              onClick={handleLogout}
-            >Logout</a>
+                className={style.list}
+                onClick={handleLogout}
+              >
+                Logout
+            </a>
+              :
+              <Link href="/login">
+                <a className={style.list}>Login</a>
+              </Link>
+            }
           </li>
         </ul>
       </nav>

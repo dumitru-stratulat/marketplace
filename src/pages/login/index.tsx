@@ -33,12 +33,6 @@ const Login = () => {
       setStatus("error");
     }
   };
-
-  const showAlert = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    e.preventDefault();
-    alert("Try again!");
-  };
-
   return (
     <div>
       <HeaderLayout />
