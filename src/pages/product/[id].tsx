@@ -90,14 +90,14 @@ export default function Product({ product, user }) {
           <Divider className={style.divider} />
           <div className={style.deleteButtonWrap}>
             <p>Adaugat {product.createdAt.split("T")[0]}</p>
-            {ctx.userDetails.userId && user.userId === ctx.userDetails.userId &&
+            {ctx.userDetails.userId && user._id === ctx.userDetails.userId &&
               <Button onClick={confirm} danger>Sterge</Button>
             }
           </div>
           <div className={style.buyButtton}>
             {product.contactNumber}
           </div>
-          {user &&
+          {user.username &&
             <div className={style.pofileWrap}>
               <Avatar size={50} icon={<UserOutlined />} />
               <div>
