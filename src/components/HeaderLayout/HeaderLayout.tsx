@@ -125,7 +125,7 @@ const HeaderLayout: React.FC = () => {
       <nav className={style.navigation}>
         <div className={style.logo}>
           <Link href="/">
-            <a className={style.list}>Outfit<span className={style.logoDomain}>.md</span></a>
+            <a className={style.list}>Outfit-md<span className={style.logoDomain}>.com</span></a>
           </Link>
         </div>
         <ul className={style.listWrap}>
